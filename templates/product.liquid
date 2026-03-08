@@ -1,4 +1,7 @@
-{# Include Judge.me widget right after the product-page section #}
-{% include 'judge-me-review-widget' %}
-
-{{ product.description }}
+{%- section 'announcement-bar' -%}
+{%- section 'header' -%}
+<main id="main-content">
+  {%- section 'product-page' -%}
+  {%- section 'product-more' -%}
+</main>
+{%- section 'footer' -%}
