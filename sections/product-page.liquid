@@ -321,6 +321,19 @@
 </section>
 {%- endif -%}
 
+<!-- ══════════════════════════════════════════════
+     JUDGE.ME CORE — Branded Preview Product Reviews
+══════════════════════════════════════════════ -->
+<section class="jdgm-preview-section">
+  <div class="jdgm-preview-inner">
+    <div class='jdgm-widget jdgm-preview-badge'
+      data-id='{{ product.id }}'
+      data-product-title='{{ product.title | escape }}'
+      data-product-handle='{{ product.handle }}'>
+    </div>
+  </div>
+</section>
+
 <script>
 (function(){
   var heroImg = document.getElementById('pdp-hero-img');

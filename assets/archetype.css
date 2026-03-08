@@ -5157,3 +5157,21 @@ body:not(.template-index) {
   border-color: rgba(239,237,230,.3);
 }
 
+/* ══════════════════════════════════════════════
+   JUDGE.ME CORE — Branded Preview Reviews
+══════════════════════════════════════════════ */
+.jdgm-preview-section {
+  background: var(--cream);
+  padding: 64px 0;
+  border-top: 1px solid var(--sand);
+}
+.jdgm-preview-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+@media (max-width: 768px) {
+  .jdgm-preview-inner { padding: 0 24px; }
+}
+.jdgm-preview-badge { display: flex; justify-content: center; }
+
