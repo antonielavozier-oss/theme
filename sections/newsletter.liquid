@@ -1,22 +1,25 @@
 <section class="newsletter-section" id="newsletter">
-  <p class="eyebrow" style="text-align:center">{{ section.settings.eyebrow }}</p>
-  <h2 class="section-title" style="text-align:center">{{ section.settings.title }}<br>{{ section.settings.title_2 }}</h2>
-  {%- if section.settings.body != blank -%}
-    <p class="body-text">{{ section.settings.body }}</p>
-  {%- endif -%}
-  {% form 'customer' %}
-    <input type="hidden" name="contact[tags]" value="{{ section.settings.tag }}">
-    <div class="newsletter-form">
-      <input type="email" name="contact[email]" placeholder="{{ section.settings.placeholder }}" required>
-      <input type="submit" value="{{ section.settings.btn_label }}">
-    </div>
-    {%- if form.posted_successfully? -%}
-      <p style="text-align:center;color:var(--orange);margin-top:18px;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase">{{ section.settings.success_msg }}</p>
+  <div class="newsletter-inner">
+    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 class="section-title">{{ section.settings.title }}<br>{{ section.settings.title_2 }}</h2>
+    {%- if section.settings.body != blank -%}
+      <p class="body-text">{{ section.settings.body }}</p>
     {%- endif -%}
-  {% endform %}
-  {%- if section.settings.disclaimer != blank -%}
-    <p style="text-align:center;color:var(--muted);margin-top:16px;font-size:.58rem;letter-spacing:.12em;opacity:.5">{{ section.settings.disclaimer }}</p>
-  {%- endif -%}
+    {% form 'customer' %}
+      <input type="hidden" name="contact[tags]" value="{{ section.settings.tag }}">
+      <input type="hidden" name="contact[accepts_marketing]" value="true">
+      <div class="newsletter-form">
+        <input type="email" name="contact[email]" placeholder="{{ section.settings.placeholder }}" required>
+        <input type="submit" value="{{ section.settings.btn_label }}">
+      </div>
+      {%- if form.posted_successfully? -%}
+        <p class="newsletter-success">{{ section.settings.success_msg }}</p>
+      {%- endif -%}
+    {% endform %}
+    {%- if section.settings.disclaimer != blank -%}
+      <p class="newsletter-disclaimer">{{ section.settings.disclaimer }}</p>
+    {%- endif -%}
+  </div>
 </section>
 
 {% schema %}
