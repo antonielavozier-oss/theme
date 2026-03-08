@@ -1,0 +1,121 @@
+{% assign logo_dark = 'logo-dark.png' | asset_url %}
+{% assign logo_cream = 'logo-cream.png' | asset_url %}
+
+<header class="site-header" id="site-header">
+
+  <!-- Main nav -->
+  <div class="header-inner">
+
+    <nav aria-label="Main navigation" class="header-nav-left">
+      <ul class="header-nav">
+        <li><a href="/collections/all">Shop</a></li>
+        <li class="nav-dropdown-wrap">
+          <a href="/pages/our-story" class="nav-dropdown-trigger">Our Story</a>
+          <ul class="nav-dropdown">
+            <li><a href="/pages/our-story">Our Story</a></li>
+            <li><a href="/pages/founder">The Founder</a></li>
+          </ul>
+        </li>
+        <li><a href="/pages/ritual">Ritual</a></li>
+      </ul>
+    </nav>
+
+    <a href="/" class="header-logo" aria-label="{{ shop.name }}">
+      <img src="{{ logo_dark }}" alt="{{ shop.name }}" class="logo-dark" height="32">
+      <img src="{{ logo_cream }}" alt="{{ shop.name }}" class="logo-light" height="32">
+    </a>
+
+    <div class="header-nav-right">
+      <ul class="header-nav">
+        <li><a href="https://archetypehair.com/#ingredients">Ingredients</a></li>
+        <li><a href="/blogs/journal">Journal</a></li>
+        <li><a href="/pages/contact">Contact</a></li>
+      </ul>
+      <div class="header-actions">
+
+        <!-- Search trigger -->
+        <button class="action-icon search-trigger" id="search-trigger" aria-label="Search" aria-expanded="false" aria-controls="search-overlay">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+
+        <a href="/account" class="action-icon" aria-label="Account">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+
+        <a href="/cart" class="btn-cart action-icon" aria-label="Cart" style="position:relative">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          {% if cart.item_count > 0 %}<span class="cart-count">{{ cart.item_count }}</span>{% endif %}
+        </a>
+
+        <button class="nav-hamburger" aria-label="Menu" id="nav-hamburger">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<!-- ══ SEARCH OVERLAY ══ -->
+<div class="search-overlay" id="search-overlay" aria-hidden="true" role="dialog" aria-label="Search">
+  <div class="search-box" id="search-box">
+    <form action="/search" method="get" class="search-form" role="search">
+      <input type="hidden" name="type" value="product">
+      <div class="search-input-wrap">
+        <svg class="search-icon-inner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input
+          type="search"
+          name="q"
+          id="search-input"
+          class="search-input"
+          placeholder="Search products, ingredients…"
+          autocomplete="off"
+          autocorrect="off"
+          spellcheck="false"
+          aria-label="Search"
+          aria-controls="search-live-results"
+          aria-autocomplete="list"
+        >
+        <div class="search-spinner" id="search-spinner" aria-hidden="true"></div>
+        <button type="button" class="search-close" id="search-close" aria-label="Close search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </form>
+    <div class="search-live" id="search-live-results" role="listbox" aria-label="Search suggestions"></div>
+    <p class="search-hint" id="search-hint">Press <kbd>Enter</kbd> to search &nbsp;&#xB7;&nbsp; <kbd>Esc</kbd> to close</p>
+  </div>
+  <div class="search-backdrop" id="search-backdrop"></div>
+</div>
+
+<!-- Mobile drawer -->
+<div class="nav-drawer" id="nav-drawer" aria-hidden="true">
+  <button class="nav-drawer-close" id="nav-drawer-close" aria-label="Close menu">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <ul class="drawer-nav">
+    <li><a href="/collections/all">Shop</a></li>
+    <li class="nav-dropdown-wrap">
+          <a href="/pages/our-story" class="nav-dropdown-trigger">Our Story</a>
+          <ul class="nav-dropdown">
+            <li><a href="/pages/our-story">Our Story</a></li>
+            <li><a href="/pages/founder">The Founder</a></li>
+          </ul>
+        </li>
+    <li><a href="/pages/ritual">Ritual</a></li>
+    <li><a href="https://archetypehair.com/#ingredients">Ingredients</a></li>
+    <li><a href="/blogs/journal">Journal</a></li>
+  </ul>
+  <div class="drawer-footer">
+    <a href="#" id="drawer-search-trigger">Search</a>
+    <a href="/account">Account</a>
+    <a href="/cart">Cart ({{ cart.item_count }})</a>
+  </div>
+</div>
+<div class="nav-overlay" id="nav-overlay"></div>
+
+{% schema %}{"name":"Header","settings":[]}{% endschema %}

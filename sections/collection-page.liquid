@@ -1,0 +1,172 @@
+{%- liquid
+  assign current_collection = collection
+  assign sort_by = collection.sort_by | default: collection.default_sort_by
+  assign total   = collection.products_count
+-%}
+
+<section class="collection-section">
+
+  <!-- Collection hero header -->
+  <div class="collection-hero">
+    <div class="collection-hero-text">
+      <p class="eyebrow">{{ section.settings.eyebrow | default: 'The Collection' }}</p>
+      <h1 class="collection-title">
+        {%- if collection.title != blank -%}
+          {{ collection.title }}
+        {%- else -%}
+          {{ section.settings.title | default: 'All Products' }}
+        {%- endif -%}
+      </h1>
+      {%- if collection.description != blank -%}
+        <p class="collection-description">{{ collection.description | strip_html | truncate: 200 }}</p>
+      {%- elsif section.settings.description != blank -%}
+        <p class="collection-description">{{ section.settings.description }}</p>
+      {%- endif -%}
+    </div>
+    <div class="collection-hero-meta">
+      <span class="collection-count">{{ total }} product{% if total != 1 %}s{% endif %}</span>
+    </div>
+  </div>
+
+  <!-- Filter + Sort bar -->
+  <div class="collection-toolbar">
+    <div class="collection-filters">
+      <!-- Tag filter pills -->
+      <a href="{{ collection.url }}" class="filter-pill{% unless current_tags %} active{% endunless %}">All</a>
+      {%- for tag in collection.all_tags -%}
+        {%- assign tag_lower = tag | downcase -%}
+        {%- if tag_lower == 'base' or tag_lower == 'booster' or tag_lower == 'kit' or tag_lower == 'new' or tag_lower == 'bestseller' -%}
+          <a href="{{ collection.url }}/{{ tag | handle }}"
+             class="filter-pill{% if current_tags contains tag %} active{% endif %}">
+            {{ tag }}
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div class="collection-sort">
+      <label class="sort-label" for="sort-select">Sort</label>
+      <select id="sort-select" class="sort-select" onchange="location.href=this.value">
+        {%- for option in collection.sort_options -%}
+          <option value="{{ collection.url }}?sort_by={{ option.value }}"
+            {% if option.value == sort_by %} selected{% endif %}>
+            {{ option.name }}
+          </option>
+        {%- endfor -%}
+      </select>
+    </div>
+  </div>
+
+  <!-- Product grid -->
+  {%- if collection.products_count > 0 -%}
+    {%- paginate collection.products by section.settings.per_page -%}
+    <div class="collection-grid">
+      {%- for product in collection.products -%}
+        {%- liquid
+          assign product_tag = ''
+          assign tag_accent  = false
+          for tag in product.tags
+            assign tag_lower = tag | downcase
+            if tag_lower == 'base' or tag_lower == 'booster' or tag_lower == 'kit'
+              assign product_tag = tag
+              if tag_lower == 'booster' or tag_lower == 'kit'
+                assign tag_accent = true
+              endif
+              break
+            endif
+          endfor
+        -%}
+        <a href="{{ product.url }}" class="product-card reveal">
+          <div class="product-img">
+            {%- if product.featured_image -%}
+              <img
+                src="{{ product.featured_image | image_url: width: 600 }}"
+                alt="{{ product.featured_image.alt | escape | default: product.title }}"
+                width="600"
+                loading="lazy">
+            {%- else -%}
+              <div class="product-img-placeholder">
+                <svg viewBox="0 0 60 60" fill="none"><rect width="60" height="60" fill="var(--cream-2)"/><path d="M20 40L28 28l6 8 5-6 9 10H20z" fill="var(--muted)" opacity=".4"/><circle cx="38" cy="22" r="4" fill="var(--muted)" opacity=".4"/></svg>
+              </div>
+            {%- endif -%}
+            {%- unless product_tag == blank -%}
+              <span class="product-tag{% if tag_accent %} accent{% endif %}">{{ product_tag }}</span>
+            {%- endunless -%}
+            {%- if product.compare_at_price > product.price -%}
+              <span class="product-badge-sale">Sale</span>
+            {%- endif -%}
+            <!-- Quick view overlay -->
+            <div class="product-card-overlay">
+              <span class="product-card-cta">View Product</span>
+            </div>
+          </div>
+          <div class="product-info">
+            {%- if product.product_type != blank -%}
+              <p class="product-type">{{ product.product_type }}</p>
+            {%- endif -%}
+            <h2 class="product-name">{{ product.title }}</h2>
+            <!-- Stars -->
+            <div class="product-stars">
+              {%- if product.metafields.reviews.rating.value != blank -%}
+                {%- assign rating_val   = product.metafields.reviews.rating.value | times: 1.0 -%}
+                {%- assign rating_count = product.metafields.reviews.rating_count.value | default: 0 -%}
+                {%- assign full_stars   = rating_val | floor -%}
+                {%- assign half_star    = rating_val | minus: full_stars -%}
+                {%- assign empty_stars  = 5 | minus: full_stars -%}
+                {%- if half_star >= 0.4 -%}{%- assign empty_stars = empty_stars | minus: 1 -%}{%- endif -%}
+                {%- for i in (1..full_stars) -%}<span class="star star-full">&#9733;</span>{%- endfor -%}
+                {%- if half_star >= 0.4 -%}<span class="star star-half">&#9733;</span>{%- endif -%}
+                {%- for i in (1..empty_stars) -%}<span class="star star-empty">&#9734;</span>{%- endfor -%}
+                {%- if rating_count > 0 -%}<span class="product-review-count">({{ rating_count }})</span>{%- endif -%}
+              {%- else -%}
+                <span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span>
+                <span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span>
+                <span class="star star-full">&#9733;</span>
+              {%- endif -%}
+            </div>
+            <div class="product-footer">
+              <span class="product-price">
+                {%- if product.price_varies -%}From {{ product.price_min | money }}{%- else -%}{{ product.price | money }}{%- endif -%}
+              </span>
+              {%- if product.compare_at_price > product.price -%}
+                <span class="product-price-compare">{{ product.compare_at_price | money }}</span>
+              {%- endif -%}
+            </div>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+
+    <!-- Pagination -->
+    {%- if paginate.pages > 1 -%}
+      <div class="collection-pagination">
+        {%- if paginate.previous -%}
+          <a href="{{ paginate.previous.url }}" class="pagination-btn">&larr; Previous</a>
+        {%- endif -%}
+        <span class="pagination-info">Page {{ paginate.current_page }} of {{ paginate.pages }}</span>
+        {%- if paginate.next -%}
+          <a href="{{ paginate.next.url }}" class="pagination-btn">Next &rarr;</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    {%- endpaginate -%}
+
+  {%- else -%}
+    <div class="collection-empty">
+      <p class="collection-empty-title">No products found.</p>
+      <a href="/collections/all" class="btn-dark">View All Products</a>
+    </div>
+  {%- endif -%}
+
+</section>
+
+{% schema %}
+{
+  "name": "Collection Page",
+  "settings": [
+    { "type": "text",     "id": "eyebrow",     "label": "Eyebrow",     "default": "The Collection" },
+    { "type": "text",     "id": "title",        "label": "Title fallback", "default": "All Products" },
+    { "type": "textarea", "id": "description",  "label": "Description fallback", "default": "We provide the ingredients. You be the alchemist." },
+    { "type": "range",    "id": "per_page",     "label": "Products per page", "min": 8, "max": 24, "step": 4, "default": 12 }
+  ]
+}
+{% endschema %}

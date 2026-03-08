@@ -1,0 +1,118 @@
+{%- liquid
+  assign blog_handle = section.settings.blog | default: 'news'
+  assign blog_obj    = blogs[blog_handle]
+  assign post_limit  = section.settings.post_limit | default: 4
+-%}
+
+<section class="blog-preview-section" id="blog">
+
+  <div class="blog-preview-header">
+    <div>
+      <p class="eyebrow">{{ section.settings.eyebrow | default: 'Read and Learn' }}</p>
+      <h2 class="blog-preview-title">{{ section.settings.title | default: 'The Hair' }} <em>{{ section.settings.title_em | default: 'Blog' }}</em></h2>
+    </div>
+    <a href="{{ blog_obj.url | default: '/blogs/news' }}" class="blog-view-all">
+      {{ section.settings.cta | default: 'View all' }} &rarr;
+    </a>
+  </div>
+
+  <div class="blog-preview-grid">
+
+    {%- if blog_obj and blog_obj.articles_count > 0 -%}
+      {%- for article in blog_obj.articles limit: post_limit -%}
+        <a href="{{ article.url }}" class="blog-card reveal">
+          <div class="blog-card-img">
+            {%- if article.image -%}
+              <img
+                src="{{ article.image | image_url: width: 720 }}"
+                alt="{{ article.image.alt | escape | default: article.title }}"
+                loading="lazy"
+                width="720"
+                height="{{ 720 | divided_by: article.image.aspect_ratio | round }}">
+            {%- else -%}
+              <div class="blog-card-img-placeholder"></div>
+            {%- endif -%}
+          </div>
+          <div class="blog-card-body">
+            {%- if article.tags.size > 0 -%}
+              <p class="blog-card-tag">{{ article.tags | first }}</p>
+            {%- elsif article.blog.title -%}
+              <p class="blog-card-tag">{{ article.blog.title }}</p>
+            {%- endif -%}
+            <h3 class="blog-card-title">{{ article.title }}</h3>
+            <p class="blog-card-date">{{ article.published_at | date: '%B %d, %Y' }}</p>
+          </div>
+        </a>
+      {%- endfor -%}
+
+    {%- else -%}
+      {%- comment -%} Placeholder cards for Theme Editor preview {%- endcomment -%}
+      {%- assign placeholder_posts = "Rosehip: The Natural Retinol Alternative,Why Cleansing and Rinsing Are Not the Same,Why Your Skin Needs Exfoliation,Squalene: Rare Botanical Skin Care" | split: "," -%}
+      {%- assign placeholder_tags  = "Ingredients,Cleansing,Exfoliation,Botanicals" | split: "," -%}
+      {%- assign placeholder_dates = "March 01, 2026,February 18, 2026,February 05, 2026,January 22, 2026" | split: "," -%}
+      {%- assign placeholder_imgs  = "model-a-portrait.jpg,model-b-overhead.jpg,model-a-closeup.jpg,model-b-hold.jpg" | split: "," -%}
+
+      {%- for i in (0..3) -%}
+        {%- assign p_img = placeholder_imgs[i] | asset_url -%}
+        <div class="blog-card reveal">
+          <div class="blog-card-img">
+            <img src="{{ p_img }}" alt="{{ placeholder_posts[i] }}" loading="lazy">
+          </div>
+          <div class="blog-card-body">
+            <p class="blog-card-tag">{{ placeholder_tags[i] }}</p>
+            <h3 class="blog-card-title">{{ placeholder_posts[i] }}</h3>
+            <p class="blog-card-date">{{ placeholder_dates[i] }}</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Blog Preview",
+  "settings": [
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "post_limit",
+      "label": "Number of posts",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Read and Learn"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "The Hair"
+    },
+    {
+      "type": "text",
+      "id": "title_em",
+      "label": "Title italic",
+      "default": "Blog"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "View all label",
+      "default": "View all"
+    }
+  ]
+}
+{% endschema %}

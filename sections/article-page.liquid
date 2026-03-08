@@ -1,0 +1,105 @@
+{%- assign reading_time = article.content | strip_html | split: ' ' | size | divided_by: 200 | plus: 1 -%}
+
+<article class="article-section">
+
+  <!-- Article hero -->
+  <div class="article-hero">
+    {%- if article.image -%}
+      <div class="article-hero-img">
+        <img src="{{ article.image | image_url: width: 1600 }}" alt="{{ article.image.alt | escape | default: article.title }}" loading="eager">
+        <div class="article-hero-overlay"></div>
+      </div>
+    {%- endif -%}
+    <div class="article-hero-inner {% unless article.image %}article-hero-inner--no-img{% endunless %}">
+      <div class="article-meta-top">
+        {%- if article.tags.size > 0 -%}
+          {%- for tag in article.tags -%}
+            <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="journal-tag">{{ tag }}</a>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+      <h1 class="article-title">{{ article.title }}</h1>
+      <div class="article-byline">
+        <span>{{ article.published_at | date: '%B %d, %Y' }}</span>
+        <span class="article-dot">·</span>
+        <span>{{ reading_time }} min read</span>
+        {%- if article.author != blank -%}
+          <span class="article-dot">·</span>
+          <span>By {{ article.author }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <!-- Article body -->
+  <div class="article-layout">
+
+    <!-- Share sidebar (desktop) -->
+    <aside class="article-share">
+      <p class="article-share-label">Share</p>
+      <a href="https://twitter.com/intent/tweet?url={{ shop.url }}{{ article.url }}&text={{ article.title | url_encode }}" class="article-share-btn" target="_blank" rel="noopener" aria-label="Share on X">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/" class="article-share-btn" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <button class="article-share-btn" onclick="navigator.clipboard.writeText(window.location.href)" title="Copy link" aria-label="Copy link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      </button>
+    </aside>
+
+    <!-- Content -->
+    <div class="article-body rte">
+      {{ article.content }}
+    </div>
+
+  </div>
+
+  <!-- Author bio -->
+  {%- if article.author != blank -%}
+  <div class="article-author">
+    <div class="article-author-inner">
+      <p class="article-author-label">Written by</p>
+      <p class="article-author-name">{{ article.author }}</p>
+    </div>
+  </div>
+  {%- endif -%}
+
+  <!-- Tags -->
+  {%- if article.tags.size > 0 -%}
+  <div class="article-tags">
+    <div class="article-tags-inner">
+      {%- for tag in article.tags -%}
+        <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="filter-pill">{{ tag }}</a>
+      {%- endfor -%}
+    </div>
+  </div>
+  {%- endif -%}
+
+  <!-- Related / Next navigation -->
+  <div class="article-nav">
+    <div class="article-nav-inner">
+      {%- if blog.previous_article -%}
+        <a href="{{ blog.previous_article }}" class="article-nav-link article-nav-link--prev">
+          <span class="article-nav-dir">&larr; Previous</span>
+        </a>
+      {%- else -%}
+        <span></span>
+      {%- endif -%}
+      <a href="{{ blog.url }}" class="article-nav-back">All articles</a>
+      {%- if blog.next_article -%}
+        <a href="{{ blog.next_article }}" class="article-nav-link article-nav-link--next">
+          <span class="article-nav-dir">Next &rarr;</span>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+</article>
+
+{% schema %}
+{
+  "name": "Article Page",
+  "settings": []
+}
+{% endschema %}

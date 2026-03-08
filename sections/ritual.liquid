@@ -1,0 +1,69 @@
+{%- assign fallback = 'product-3.jpg' | asset_url -%}
+<section class="ritual-section" id="ritual">
+  <div class="ritual-bg" style="background-image:url('{% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 2000 }}{% else %}{{ fallback }}{% endif %}');background-position:{{ section.settings.focal }}"></div>
+  <div class="ritual-overlay"></div>
+  <div class="ritual-content">
+    <p class="eyebrow" style="color:var(--cream-2)">{{ section.settings.eyebrow }}</p>
+    <h2 class="section-title" style="color:#fff">{{ section.settings.title }}<br><em>{{ section.settings.title_em }}</em></h2>
+    <div class="ritual-steps">
+      {%- for i in (1..6) -%}
+        {%- assign name_key = "step" | append: i | append: "_name" -%}
+        {%- assign desc_key = "step" | append: i | append: "_desc" -%}
+        {%- if section.settings[name_key] != blank -%}
+          <div class="ritual-step">
+            <span class="step-num">0{{ i }}</span>
+            <div>
+              <p class="step-name">{{ section.settings[name_key] }}</p>
+              <p class="step-desc">{{ section.settings[desc_key] }}</p>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.cta_label != blank -%}
+      <a href="{{ section.settings.cta_url | default: '/pages/ritual' }}" class="btn-primary">{{ section.settings.cta_label }}</a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ritual Section",
+  "settings": [
+    { "type": "header", "content": "Background" },
+    { "type": "image_picker", "id": "image", "label": "Background image" },
+    { "type": "select", "id": "focal", "label": "Image focus", "default": "center center", "options": [
+        { "value": "center center", "label": "Center" },
+        { "value": "center top", "label": "Top" },
+        { "value": "center bottom", "label": "Bottom" },
+        { "value": "left center", "label": "Left" },
+        { "value": "right center", "label": "Right" }
+    ]},
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Alchemy Ritual." },
+    { "type": "text", "id": "title", "label": "Title", "default": "Five steps to" },
+    { "type": "text", "id": "title_em", "label": "Title italic", "default": "your transformation." },
+    { "type": "header", "content": "Step 1" },
+    { "type": "text", "id": "step1_name", "label": "Name", "default": "01. Pause" },
+    { "type": "textarea", "id": "step1_desc", "label": "Description", "default": "Before applying, take a moment. What does your hair need today? Moisture, repair, balance? Let your intention guide your formula." },
+    { "type": "header", "content": "Step 2" },
+    { "type": "text", "id": "step2_name", "label": "Name", "default": "02. Cleanse with Foundation" },
+    { "type": "textarea", "id": "step2_desc", "label": "Description", "default": "Our gentle base cleanses all hair types without stripping. The perfect canvas for your personalized ritual." },
+    { "type": "header", "content": "Step 3" },
+    { "type": "text", "id": "step3_name", "label": "Name", "default": "03. Customize with Boosters" },
+    { "type": "textarea", "id": "step3_desc", "label": "Description", "default": "Choose your targeted boosters. Mix them into your base. Hydration, repair, scalp health, frizz control. Your formula, your alchemy." },
+    { "type": "header", "content": "Step 4" },
+    { "type": "text", "id": "step4_name", "label": "Name", "default": "04. Apply with Intention" },
+    { "type": "textarea", "id": "step4_desc", "label": "Description", "default": "As you apply, breathe. Connect with the ritual. This is not just haircare. It is a moment of self-care and mindful presence." },
+    { "type": "header", "content": "Step 5" },
+    { "type": "text", "id": "step5_name", "label": "Name", "default": "05. Celebrate and Adapt" },
+    { "type": "textarea", "id": "step5_desc", "label": "Description", "default": "After your ritual, take a moment to appreciate how you feel. Not just your hair, but you. Your needs will change with seasons and life. Switch your boosters. Archetype evolves with you." },
+    { "type": "header", "content": "Step 6 (optional)" },
+    { "type": "text", "id": "step6_name", "label": "Name" },
+    { "type": "textarea", "id": "step6_desc", "label": "Description" },
+    { "type": "header", "content": "Button" },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Build My Ritual" },
+    { "type": "url", "id": "cta_url", "label": "Button link" }
+  ]
+}
+{% endschema %}

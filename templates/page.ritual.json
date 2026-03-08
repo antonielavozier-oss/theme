@@ -1,0 +1,53 @@
+{
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {}
+    },
+    "header": {
+      "type": "header",
+      "settings": {}
+    },
+    "ritual-page": {
+      "type": "ritual-page",
+      "settings": {
+        "eyebrow": "The Alchemy Ritual",
+        "title": "It is not a routine.",
+        "title_em": "It is a ritual.",
+        "subtitle": "Five intentional moments that transform your haircare into an act of self-knowledge, connection, and alchemical creation.",
+        "intro": "The moon watches over your hair, weaving her phases into every strand. The energy of the earth blending with your own. ARCHETYPE was built around this belief: that the most powerful haircare is also the most intentional.",
+        "steps_eyebrow": "The five moments",
+        "steps_title": "Your alchemy, step by step.",
+        "s1_name": "Pause",
+        "s1_tagline": "Before you begin, arrive.",
+        "s1_desc": "Before applying anything, take a moment. Place your hands on your hair. What does it feel like today? Is it dry, tired, heavy? This moment of listening is the beginning of your ritual. It is not routine — it is a conversation.",
+        "s1_tip": "Close your eyes. Breathe. Let this be the first act of care.",
+        "s2_name": "Cleanse with Foundation",
+        "s2_tagline": "The canvas begins.",
+        "s2_desc": "Foundation is your base. A gentle but effective cleanser that removes without stripping, nourishes without weighing down. It works for every hair type, every texture — because every ritual begins in the same place: a clean slate.",
+        "s2_tip": "Massage gently into the scalp using circular movements. Let the botanical scent arrive.",
+        "s3_name": "Choose your Boosters",
+        "s3_tagline": "You be the alchemist.",
+        "s3_desc": "This is where the alchemy begins. Select the boosters that match what your hair is asking for today. Hydration. Repair. Scalp balance. Frizz control. Mix them into your Foundation. Your formula. Your creation. No two people, no two washes, need to be the same.",
+        "s3_tip": "Mix 2-3 drops of booster into your palm with Foundation before applying. Start with one booster and build from there.",
+        "s4_name": "Apply with intention",
+        "s4_tagline": "The ritual deepens.",
+        "s4_desc": "As you apply your formula, breathe. Let the scent of the botanicals arrive. Massage gently. Connect with the sensation. This is not something to rush through — it is a healing conversation in silence, between you and your hair.",
+        "s4_tip": "Take at least 3 minutes. This is yours.",
+        "s5_name": "Celebrate and adapt",
+        "s5_tagline": "Your ritual evolves with you.",
+        "s5_desc": "After your ritual, pause again. Notice how you feel. Not just your hair, but yourself. Your needs will change with the seasons, with stress, with life. Switch your boosters. Add something new. ARCHETYPE was designed to evolve alongside you.",
+        "build_eyebrow": "Begin now",
+        "build_title": "We provide the ingredients.",
+        "build_title_em": "You be the alchemist.",
+        "build_sub": "Because no two people, and no two hairs, are the same. ARCHETYPE gives you the tools to create what works for you.",
+        "build_label": "Build my ritual"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {}
+    }
+  },
+  "order": ["announcement-bar", "header", "ritual-page", "footer"]
+}

@@ -1,0 +1,270 @@
+<div class="ritual-pg">
+
+  <!-- ── HERO ── -->
+  <div class="rpg-hero">
+    <div class="rpg-hero-inner">
+      <p class="eyebrow">{{ section.settings.eyebrow | default: 'The Alchemy Ritual' }}</p>
+      <h1 class="rpg-title">
+        {{ section.settings.title | default: 'It is not a routine.' }}<br>
+        <em>{{ section.settings.title_em | default: 'It is a ritual.' }}</em>
+      </h1>
+      <p class="rpg-subtitle">{{ section.settings.subtitle | default: 'Five intentional moments that transform your haircare into an act of self-knowledge, connection, and alchemical creation.' }}</p>
+    </div>
+    <div class="rpg-hero-deco" aria-hidden="true">
+      <svg viewBox="0 0 320 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M160 24 C240 55, 300 150, 272 248 C244 346, 136 386, 72 342 C8 298, 10 182, 52 102 C94 22, 140 0, 160 24Z" stroke="rgba(181,118,42,0.16)" stroke-width="1.5" fill="rgba(181,118,42,0.03)"/>
+        <path d="M160 70 C220 92, 258 164, 234 242 C210 320, 134 352, 82 318 C30 284, 34 188, 64 120 C94 52, 136 52, 160 70Z" stroke="rgba(181,118,42,0.08)" stroke-width="1" fill="none"/>
+        <circle cx="160" cy="240" r="6" fill="rgba(181,118,42,0.3)"/>
+        <line x1="160" y1="246" x2="160" y2="440" stroke="rgba(181,118,42,0.1)" stroke-width="1" stroke-dasharray="4 6"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ── INTRO ── -->
+  <div class="rpg-intro">
+    <div class="rpg-intro-inner">
+      <p class="rpg-intro-text">{{ section.settings.intro | default: 'The moon watches over your hair, weaving her phases into every strand. The energy of the earth blending with your own. ARCHETYPE was built around this belief: that the most powerful haircare is also the most intentional.' }}</p>
+      <div class="rpg-intro-stats">
+        <div class="rpg-stat">
+          <span class="rpg-stat-num">5</span>
+          <span class="rpg-stat-label">Ritual moments</span>
+        </div>
+        <div class="rpg-stat">
+          <span class="rpg-stat-num">1</span>
+          <span class="rpg-stat-label">Base formula</span>
+        </div>
+        <div class="rpg-stat">
+          <span class="rpg-stat-num">∞</span>
+          <span class="rpg-stat-label">Possible combinations</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── THE 5 STEPS ── -->
+  <div class="rpg-steps">
+    <div class="rpg-steps-header">
+      <p class="eyebrow">{{ section.settings.steps_eyebrow | default: 'The five moments' }}</p>
+      <h2 class="rpg-steps-title">{{ section.settings.steps_title | default: 'Your alchemy, step by step.' }}</h2>
+    </div>
+
+    <!-- Step 1 -->
+    <div class="rpg-step rpg-step--light">
+      <div class="rpg-step-num-wrap">
+        <span class="rpg-step-num">01</span>
+        <div class="rpg-step-line"></div>
+      </div>
+      <div class="rpg-step-content">
+        <h3 class="rpg-step-name">{{ section.settings.s1_name | default: 'Pause' }}</h3>
+        <p class="rpg-step-tagline">{{ section.settings.s1_tagline | default: 'Before you begin, arrive.' }}</p>
+        <p class="rpg-step-desc">{{ section.settings.s1_desc | default: 'Before applying anything, take a moment. Place your hands on your hair. What does it feel like today? Is it dry, tired, heavy? This moment of listening is the beginning of your ritual. It is not routine — it is a conversation.' }}</p>
+        {%- if section.settings.s1_tip != blank -%}
+          <div class="rpg-step-tip">
+            <span class="rpg-step-tip-icon">✦</span>
+            {{ section.settings.s1_tip }}
+          </div>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.s1_image != blank -%}
+        <div class="rpg-step-img">
+          <img src="{{ section.settings.s1_image | image_url: width: 700 }}" alt="Pause">
+        </div>
+      {%- else -%}
+        <div class="rpg-step-img rpg-step-img--placeholder">
+          <div class="rpg-step-img-inner">
+            <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="38" stroke="rgba(181,118,42,0.2)" stroke-width="1"/><path d="M40 15 C55 25, 65 40, 55 55 C45 70, 25 65, 20 50 C15 35, 28 18, 40 15Z" fill="rgba(181,118,42,0.06)" stroke="rgba(181,118,42,0.15)" stroke-width="1"/></svg>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Step 2 -->
+    <div class="rpg-step rpg-step--dark rpg-step--reverse">
+      <div class="rpg-step-num-wrap">
+        <span class="rpg-step-num">02</span>
+        <div class="rpg-step-line"></div>
+      </div>
+      <div class="rpg-step-content">
+        <h3 class="rpg-step-name">{{ section.settings.s2_name | default: 'Cleanse with Foundation' }}</h3>
+        <p class="rpg-step-tagline">{{ section.settings.s2_tagline | default: 'The canvas begins.' }}</p>
+        <p class="rpg-step-desc">{{ section.settings.s2_desc | default: 'Foundation is your base. A gentle but effective cleanser that removes without stripping, nourishes without weighing down. It works for every hair type, every texture — because every ritual begins in the same place: a clean slate.' }}</p>
+        {%- if section.settings.s2_tip != blank -%}
+          <div class="rpg-step-tip rpg-step-tip--light">
+            <span class="rpg-step-tip-icon">✦</span>
+            {{ section.settings.s2_tip }}
+          </div>
+        {%- endif -%}
+        <a href="{{ section.settings.s2_link | default: '/collections/all' }}" class="rpg-step-cta">Shop Foundation &rarr;</a>
+      </div>
+      {%- if section.settings.s2_image != blank -%}
+        <div class="rpg-step-img">
+          <img src="{{ section.settings.s2_image | image_url: width: 700 }}" alt="Foundation">
+        </div>
+      {%- else -%}
+        <div class="rpg-step-img rpg-step-img--placeholder rpg-step-img--dark">
+          <div class="rpg-step-img-inner">
+            <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="38" stroke="rgba(239,237,230,0.15)" stroke-width="1"/><path d="M40 15 C55 25, 65 40, 55 55 C45 70, 25 65, 20 50 C15 35, 28 18, 40 15Z" fill="rgba(239,237,230,0.06)" stroke="rgba(239,237,230,0.12)" stroke-width="1"/></svg>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Step 3 -->
+    <div class="rpg-step rpg-step--light">
+      <div class="rpg-step-num-wrap">
+        <span class="rpg-step-num">03</span>
+        <div class="rpg-step-line"></div>
+      </div>
+      <div class="rpg-step-content">
+        <h3 class="rpg-step-name">{{ section.settings.s3_name | default: 'Choose your Boosters' }}</h3>
+        <p class="rpg-step-tagline">{{ section.settings.s3_tagline | default: 'You be the alchemist.' }}</p>
+        <p class="rpg-step-desc">{{ section.settings.s3_desc | default: 'This is where the alchemy begins. Select the boosters that match what your hair is asking for today. Hydration. Repair. Scalp balance. Frizz control. Mix them into your Foundation. Your formula. Your creation. No two people, no two washes, need to be the same.' }}</p>
+        {%- if section.settings.s3_tip != blank -%}
+          <div class="rpg-step-tip">
+            <span class="rpg-step-tip-icon">✦</span>
+            {{ section.settings.s3_tip }}
+          </div>
+        {%- endif -%}
+        <a href="{{ section.settings.s3_link | default: '/collections/all' }}" class="rpg-step-cta rpg-step-cta--dark">Explore Boosters &rarr;</a>
+      </div>
+      {%- if section.settings.s3_image != blank -%}
+        <div class="rpg-step-img">
+          <img src="{{ section.settings.s3_image | image_url: width: 700 }}" alt="Boosters">
+        </div>
+      {%- else -%}
+        <div class="rpg-step-img rpg-step-img--placeholder">
+          <div class="rpg-step-img-inner">
+            <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="38" stroke="rgba(181,118,42,0.2)" stroke-width="1"/><path d="M26 40 C26 33, 33 26, 40 26 C47 26, 54 33, 54 40 C54 50, 45 58, 40 62 C35 58, 26 50, 26 40Z" fill="rgba(181,118,42,0.06)" stroke="rgba(181,118,42,0.15)" stroke-width="1"/></svg>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Step 4 -->
+    <div class="rpg-step rpg-step--dark rpg-step--reverse">
+      <div class="rpg-step-num-wrap">
+        <span class="rpg-step-num">04</span>
+        <div class="rpg-step-line"></div>
+      </div>
+      <div class="rpg-step-content">
+        <h3 class="rpg-step-name">{{ section.settings.s4_name | default: 'Apply with intention' }}</h3>
+        <p class="rpg-step-tagline">{{ section.settings.s4_tagline | default: 'The ritual deepens.' }}</p>
+        <p class="rpg-step-desc">{{ section.settings.s4_desc | default: 'As you apply your formula, breathe. Let the scent of the botanicals arrive. Massage gently. Connect with the sensation. This is not something to rush through — it is a healing conversation in silence, between you and your hair.' }}</p>
+        {%- if section.settings.s4_tip != blank -%}
+          <div class="rpg-step-tip rpg-step-tip--light">
+            <span class="rpg-step-tip-icon">✦</span>
+            {{ section.settings.s4_tip }}
+          </div>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.s4_image != blank -%}
+        <div class="rpg-step-img">
+          <img src="{{ section.settings.s4_image | image_url: width: 700 }}" alt="Apply with intention">
+        </div>
+      {%- else -%}
+        <div class="rpg-step-img rpg-step-img--placeholder rpg-step-img--dark">
+          <div class="rpg-step-img-inner">
+            <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="38" stroke="rgba(239,237,230,0.15)" stroke-width="1"/><ellipse cx="40" cy="40" rx="20" ry="28" fill="rgba(239,237,230,0.05)" stroke="rgba(239,237,230,0.12)" stroke-width="1"/></svg>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Step 5 -->
+    <div class="rpg-step rpg-step--light rpg-step--last">
+      <div class="rpg-step-num-wrap">
+        <span class="rpg-step-num">05</span>
+      </div>
+      <div class="rpg-step-content">
+        <h3 class="rpg-step-name">{{ section.settings.s5_name | default: 'Celebrate and adapt' }}</h3>
+        <p class="rpg-step-tagline">{{ section.settings.s5_tagline | default: 'Your ritual evolves with you.' }}</p>
+        <p class="rpg-step-desc">{{ section.settings.s5_desc | default: 'After your ritual, pause again. Notice how you feel. Not just your hair, but yourself. Your needs will change with the seasons, with stress, with life. Switch your boosters. Add something new. ARCHETYPE was designed to evolve alongside you.' }}</p>
+        {%- if section.settings.s5_tip != blank -%}
+          <div class="rpg-step-tip">
+            <span class="rpg-step-tip-icon">✦</span>
+            {{ section.settings.s5_tip }}
+          </div>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.s5_image != blank -%}
+        <div class="rpg-step-img">
+          <img src="{{ section.settings.s5_image | image_url: width: 700 }}" alt="Celebrate and adapt">
+        </div>
+      {%- else -%}
+        <div class="rpg-step-img rpg-step-img--placeholder">
+          <div class="rpg-step-img-inner">
+            <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="38" stroke="rgba(181,118,42,0.2)" stroke-width="1"/><circle cx="40" cy="40" r="18" stroke="rgba(181,118,42,0.15)" stroke-width="1" fill="rgba(181,118,42,0.05)"/><circle cx="40" cy="40" r="5" fill="rgba(181,118,42,0.3)"/></svg>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <!-- ── BUILD YOUR RITUAL CTA ── -->
+  <div class="rpg-build">
+    <div class="rpg-build-inner">
+      <p class="eyebrow">{{ section.settings.build_eyebrow | default: 'Begin now' }}</p>
+      <h2 class="rpg-build-title">{{ section.settings.build_title | default: 'We provide the ingredients.' }}<br><em>{{ section.settings.build_title_em | default: 'You be the alchemist.' }}</em></h2>
+      <p class="rpg-build-sub">{{ section.settings.build_sub | default: 'Because no two people, and no two hairs, are the same. ARCHETYPE gives you the tools to create what works for you.' }}</p>
+      <a href="{{ section.settings.build_url | default: '/collections/all' }}" class="btn-light">{{ section.settings.build_label | default: 'Build my ritual' }}</a>
+    </div>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Ritual Page",
+  "settings": [
+    { "type": "header",   "content": "Hero" },
+    { "type": "text",     "id": "eyebrow",       "label": "Eyebrow",        "default": "The Alchemy Ritual" },
+    { "type": "text",     "id": "title",          "label": "Title",          "default": "It is not a routine." },
+    { "type": "text",     "id": "title_em",       "label": "Title italic",   "default": "It is a ritual." },
+    { "type": "textarea", "id": "subtitle",       "label": "Subtitle",       "default": "Five intentional moments that transform your haircare into an act of self-knowledge, connection, and alchemical creation." },
+    { "type": "header",   "content": "Intro" },
+    { "type": "textarea", "id": "intro",          "label": "Intro paragraph", "default": "The moon watches over your hair, weaving her phases into every strand. The energy of the earth blending with your own. ARCHETYPE was built around this belief: that the most powerful haircare is also the most intentional." },
+    { "type": "header",   "content": "Steps" },
+    { "type": "text",     "id": "steps_eyebrow",  "label": "Steps eyebrow",  "default": "The five moments" },
+    { "type": "text",     "id": "steps_title",    "label": "Steps title",    "default": "Your alchemy, step by step." },
+    { "type": "header",   "content": "Step 1 — Pause" },
+    { "type": "text",     "id": "s1_name",        "label": "Name",           "default": "Pause" },
+    { "type": "text",     "id": "s1_tagline",     "label": "Tagline",        "default": "Before you begin, arrive." },
+    { "type": "textarea", "id": "s1_desc",        "label": "Description",    "default": "Before applying anything, take a moment. Place your hands on your hair. What does it feel like today?" },
+    { "type": "text",     "id": "s1_tip",         "label": "Tip (optional)" },
+    { "type": "image_picker", "id": "s1_image",   "label": "Image" },
+    { "type": "header",   "content": "Step 2 — Foundation" },
+    { "type": "text",     "id": "s2_name",        "label": "Name",           "default": "Cleanse with Foundation" },
+    { "type": "text",     "id": "s2_tagline",     "label": "Tagline",        "default": "The canvas begins." },
+    { "type": "textarea", "id": "s2_desc",        "label": "Description",    "default": "Foundation is your base. A gentle but effective cleanser that removes without stripping." },
+    { "type": "text",     "id": "s2_tip",         "label": "Tip (optional)" },
+    { "type": "url",      "id": "s2_link",        "label": "Product link" },
+    { "type": "image_picker", "id": "s2_image",   "label": "Image" },
+    { "type": "header",   "content": "Step 3 — Boosters" },
+    { "type": "text",     "id": "s3_name",        "label": "Name",           "default": "Choose your Boosters" },
+    { "type": "text",     "id": "s3_tagline",     "label": "Tagline",        "default": "You be the alchemist." },
+    { "type": "textarea", "id": "s3_desc",        "label": "Description",    "default": "Select the boosters that match what your hair is asking for today." },
+    { "type": "text",     "id": "s3_tip",         "label": "Tip (optional)" },
+    { "type": "url",      "id": "s3_link",        "label": "Product link" },
+    { "type": "image_picker", "id": "s3_image",   "label": "Image" },
+    { "type": "header",   "content": "Step 4 — Apply" },
+    { "type": "text",     "id": "s4_name",        "label": "Name",           "default": "Apply with intention" },
+    { "type": "text",     "id": "s4_tagline",     "label": "Tagline",        "default": "The ritual deepens." },
+    { "type": "textarea", "id": "s4_desc",        "label": "Description",    "default": "As you apply your formula, breathe. Let the scent of the botanicals arrive." },
+    { "type": "text",     "id": "s4_tip",         "label": "Tip (optional)" },
+    { "type": "image_picker", "id": "s4_image",   "label": "Image" },
+    { "type": "header",   "content": "Step 5 — Celebrate" },
+    { "type": "text",     "id": "s5_name",        "label": "Name",           "default": "Celebrate and adapt" },
+    { "type": "text",     "id": "s5_tagline",     "label": "Tagline",        "default": "Your ritual evolves with you." },
+    { "type": "textarea", "id": "s5_desc",        "label": "Description",    "default": "After your ritual, pause again. Notice how you feel." },
+    { "type": "text",     "id": "s5_tip",         "label": "Tip (optional)" },
+    { "type": "image_picker", "id": "s5_image",   "label": "Image" },
+    { "type": "header",   "content": "Build your ritual CTA" },
+    { "type": "text",     "id": "build_eyebrow",  "label": "Eyebrow",        "default": "Begin now" },
+    { "type": "text",     "id": "build_title",    "label": "Title",          "default": "We provide the ingredients." },
+    { "type": "text",     "id": "build_title_em", "label": "Title italic",   "default": "You be the alchemist." },
+    { "type": "textarea", "id": "build_sub",      "label": "Subtitle",       "default": "Because no two people, and no two hairs, are the same." },
+    { "type": "url",      "id": "build_url",      "label": "Button URL" },
+    { "type": "text",     "id": "build_label",    "label": "Button label",   "default": "Build my ritual" }
+  ]
+}
+{% endschema %}

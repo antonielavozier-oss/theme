@@ -1,0 +1,58 @@
+{%- comment -%}
+  product-more.liquid — "Also in the collection" strip on PDP
+  Dynamic: pulls all products from the same collection as current product.
+{%- endcomment -%}
+
+{%- liquid
+  assign current = product
+  assign strip_collection = false
+
+  for col in collections
+    for p in col.products
+      if p.handle == current.handle
+        assign strip_collection = col
+        break
+      endif
+    endfor
+    if strip_collection
+      break
+    endif
+  endfor
+
+  if strip_collection == false
+    assign strip_collection = collections['all']
+  endif
+-%}
+
+{%- if strip_collection.products_count > 1 -%}
+<section class="pdp-all-products">
+  <p class="eyebrow" style="text-align:center">{{ section.settings.eyebrow | default: 'The full collection' }}</p>
+  <div class="pdp-strip">
+    {%- for p in strip_collection.products -%}
+      <a href="{{ p.url }}" class="pdp-strip-item{% if p.handle == current.handle %} active{% endif %}">
+        {%- if p.featured_image -%}
+          <img src="{{ p.featured_image | image_url: width: 300 }}" alt="{{ p.featured_image.alt | escape | default: p.title }}" loading="lazy" width="300">
+        {%- else -%}
+          <div class="pdp-strip-placeholder"></div>
+        {%- endif -%}
+        <span class="pdp-strip-name">{{ p.title }}</span>
+        <span class="pdp-strip-price">{{ p.price | money }}</span>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product More",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "The full collection"
+    }
+  ]
+}
+{% endschema %}

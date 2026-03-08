@@ -1,0 +1,40 @@
+{%- assign fallback = 'model-a-wide.jpg' | asset_url -%}
+<section class="story-section" id="story">
+  <div class="story-image">
+    {%- if section.settings.image != blank -%}
+      <img src="{{ section.settings.image | image_url: width: 1200 }}" alt="{{ section.settings.title }}" loading="lazy">
+    {%- else -%}
+      <img src="{{ fallback }}" alt="{{ section.settings.title }}" loading="lazy">
+    {%- endif -%}
+  </div>
+  <div class="story-text" {% if section.settings.bg_color != blank %}style="background:{{ section.settings.bg_color }}"{% endif %}>
+    <div class="deco-line"></div>
+    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 class="section-title">{{ section.settings.title }}<br><em>{{ section.settings.title_em }}</em></h2>
+    {%- if section.settings.body_1 != blank -%}<p class="body-text">{{ section.settings.body_1 }}</p>{%- endif -%}
+    {%- if section.settings.body_2 != blank -%}<p class="body-text">{{ section.settings.body_2 }}</p>{%- endif -%}
+    {%- if section.settings.cta_label != blank -%}
+      <a href="{{ section.settings.cta_url | default: '/pages/our-story' }}" class="btn-dark">{{ section.settings.cta_label }}</a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story Section",
+  "settings": [
+    { "type": "header", "content": "Image" },
+    { "type": "image_picker", "id": "image", "label": "Section image" },
+    { "type": "header", "content": "Text" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Science and nature, united." },
+    { "type": "text", "id": "title", "label": "Title", "default": "Not a routine." },
+    { "type": "text", "id": "title_em", "label": "Title italic", "default": "A ritual of self-discovery." },
+    { "type": "textarea", "id": "body_1", "label": "Paragraph 1", "default": "ARCHETYPE was born from a simple belief: every hair is unique and deserves a formula made for it. Founded by a Brazilian woman in Brussels, shaped by three years of botanical research and ancient alchemy principles." },
+    { "type": "textarea", "id": "body_2", "label": "Paragraph 2", "default": "We give you the ingredients. You become the alchemist. A gentle base, targeted boosters, and the freedom to adapt your ritual as your hair evolves with your seasons, your life, your identity." },
+    { "type": "text", "id": "cta_label", "label": "Button label", "default": "Our Story" },
+    { "type": "url", "id": "cta_url", "label": "Button link" },
+    { "type": "header", "content": "Style" },
+    { "type": "color", "id": "bg_color", "label": "Text panel background" }
+  ]
+}
+{% endschema %}

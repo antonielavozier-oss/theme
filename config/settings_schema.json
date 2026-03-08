@@ -1,0 +1,89 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Archetype Maiweskin",
+    "theme_version": "4.0.0",
+    "theme_author": "Archetype Hair",
+    "theme_documentation_url": "https://archetypehair.com",
+    "theme_support_url": "https://archetypehair.com"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      { "type": "header", "content": "Brand Colors" },
+      { "type": "color", "id": "color_bg",      "label": "Page background",     "default": "#f7f3ec" },
+      { "type": "color", "id": "color_cream",   "label": "Cream / card bg",     "default": "#f2ede4" },
+      { "type": "color", "id": "color_deep",    "label": "Dark (text, buttons)", "default": "#2b2218" },
+      { "type": "color", "id": "color_accent",  "label": "Accent / amber",      "default": "#b5762a" },
+      { "type": "color", "id": "color_muted",   "label": "Muted text",          "default": "#7a7168" }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      { "type": "header", "content": "Fonts" },
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading font",
+        "default": "cormorant_n3"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body font",
+        "default": "jost_n3"
+      },
+      { "type": "range", "id": "font_size_base", "label": "Base font size (px)", "min": 13, "max": 18, "step": 1, "default": 15 }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      { "type": "header", "content": "Logo" },
+      { "type": "image_picker", "id": "header_logo_dark",  "label": "Logo (dark — on light bg)" },
+      { "type": "image_picker", "id": "header_logo_light", "label": "Logo (light — on hero)" },
+      { "type": "range", "id": "logo_height", "label": "Logo height (px)", "min": 20, "max": 60, "step": 2, "default": 32 },
+      { "type": "header", "content": "Navigation" },
+      { "type": "link_list", "id": "nav_left",  "label": "Left nav menu" },
+      { "type": "link_list", "id": "nav_right", "label": "Right nav menu" },
+      { "type": "header", "content": "Style" },
+      { "type": "color", "id": "header_bg_scrolled", "label": "Background when scrolled" }
+    ]
+  },
+  {
+    "name": "Buttons",
+    "settings": [
+      { "type": "header", "content": "Primary Button" },
+      { "type": "color",  "id": "btn_primary_bg",     "label": "Background" },
+      { "type": "color",  "id": "btn_primary_text",   "label": "Text color" },
+      { "type": "color",  "id": "btn_primary_hover",  "label": "Hover background" },
+      { "type": "header", "content": "Dark Button" },
+      { "type": "color",  "id": "btn_dark_bg",        "label": "Background" },
+      { "type": "color",  "id": "btn_dark_text",      "label": "Text color" },
+      { "type": "color",  "id": "btn_dark_hover",     "label": "Hover background" }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      { "type": "image_picker", "id": "favicon", "label": "Favicon image" }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      { "type": "url", "id": "social_instagram",  "label": "Instagram" },
+      { "type": "url", "id": "social_tiktok",     "label": "TikTok" },
+      { "type": "url", "id": "social_pinterest",  "label": "Pinterest" },
+      { "type": "url", "id": "social_youtube",    "label": "YouTube" },
+      { "type": "url", "id": "social_facebook",   "label": "Facebook" }
+    ]
+  },
+  {
+    "name": "SEO & Sharing",
+    "settings": [
+      { "type": "image_picker", "id": "share_image", "label": "Default social share image" }
+    ]
+  }
+]

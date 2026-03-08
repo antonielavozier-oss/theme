@@ -1,0 +1,131 @@
+<section class="journal-section">
+
+  <!-- Hero -->
+  <div class="journal-hero">
+    <div class="journal-hero-inner">
+      <p class="eyebrow">{{ section.settings.eyebrow | default: 'Archetype Journal' }}</p>
+      <h1 class="journal-title">
+        {{ section.settings.title | default: 'The ritual,' }}<br>
+        <em>{{ section.settings.title_em | default: 'written down.' }}</em>
+      </h1>
+      <p class="journal-subtitle">{{ section.settings.subtitle | default: 'Hair knowledge, alchemist rituals, ingredient stories and the science behind your formula.' }}</p>
+    </div>
+    <!-- Decorative organic shape -->
+    <div class="journal-hero-deco" aria-hidden="true">
+      <svg viewBox="0 0 320 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M160 20 C240 55, 300 150, 270 240 C240 330, 140 370, 80 330 C20 290, 15 180, 55 105 C95 30, 140 -5, 160 20Z" stroke="rgba(181,118,42,0.14)" stroke-width="1.5" fill="rgba(181,118,42,0.03)"/>
+        <path d="M160 60 C220 85, 260 155, 235 230 C210 305, 130 335, 80 300 C30 265, 35 170, 65 110 C95 50, 135 42, 160 60Z" stroke="rgba(181,118,42,0.07)" stroke-width="1" fill="none"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Category filter -->
+  <div class="journal-toolbar">
+    <div class="journal-filters">
+      <a href="{{ blog.url }}" class="filter-pill{% unless current_tags %} active{% endunless %}">All</a>
+      {%- for tag in blog.all_tags -%}
+        <a href="{{ blog.url }}/tagged/{{ tag | handle }}"
+           class="filter-pill{% if current_tags contains tag %} active{% endif %}">
+          {{ tag }}
+        </a>
+      {%- endfor -%}
+    </div>
+    <span class="journal-count">{{ blog.articles_count }} article{% if blog.articles_count != 1 %}s{% endif %}</span>
+  </div>
+
+  <!-- Articles grid -->
+  {%- if blog.articles_count > 0 -%}
+    {%- paginate blog.articles by section.settings.per_page -%}
+
+    {%- assign featured = blog.articles | first -%}
+
+    <!-- Featured article (first/latest) -->
+    {%- if paginate.current_page == 1 -%}
+    <a href="{{ featured.url }}" class="journal-featured reveal">
+      <div class="journal-featured-img">
+        {%- if featured.image -%}
+          <img src="{{ featured.image | image_url: width: 1400 }}" alt="{{ featured.image.alt | escape | default: featured.title }}" loading="eager">
+        {%- else -%}
+          <div class="journal-featured-placeholder"></div>
+        {%- endif -%}
+        {%- if featured.tags.size > 0 -%}
+          <span class="journal-tag">{{ featured.tags | first }}</span>
+        {%- endif -%}
+      </div>
+      <div class="journal-featured-info">
+        <p class="journal-meta">{{ featured.published_at | date: '%B %d, %Y' }} &nbsp;&middot;&nbsp; {{ featured.read_time }} min read</p>
+        <h2 class="journal-featured-title">{{ featured.title }}</h2>
+        <p class="journal-featured-excerpt">{{ featured.excerpt_or_content | strip_html | truncate: 200 }}</p>
+        <span class="journal-read-more">Read the ritual &rarr;</span>
+      </div>
+    </a>
+    {%- endif -%}
+
+    <!-- Article grid -->
+    <div class="journal-grid">
+      {%- for article in blog.articles -%}
+        {%- if paginate.current_page == 1 and forloop.first -%}{%- continue -%}{%- endif -%}
+        <a href="{{ article.url }}" class="journal-card reveal">
+          <div class="journal-card-img">
+            {%- if article.image -%}
+              <img src="{{ article.image | image_url: width: 600 }}" alt="{{ article.image.alt | escape | default: article.title }}" loading="lazy">
+            {%- else -%}
+              <div class="journal-card-placeholder">
+                <svg viewBox="0 0 60 60" fill="none"><rect width="60" height="60" fill="var(--cream-2)"/><path d="M15 42L25 28l8 10 6-7 11 11H15z" fill="var(--muted)" opacity=".3"/></svg>
+              </div>
+            {%- endif -%}
+            {%- if article.tags.size > 0 -%}
+              <span class="journal-tag">{{ article.tags | first }}</span>
+            {%- endif -%}
+          </div>
+          <div class="journal-card-info">
+            <p class="journal-meta">{{ article.published_at | date: '%b %d, %Y' }}</p>
+            <h3 class="journal-card-title">{{ article.title }}</h3>
+            <p class="journal-card-excerpt">{{ article.excerpt_or_content | strip_html | truncate: 110 }}</p>
+            <span class="journal-read-link">Read &rarr;</span>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+
+    <!-- Pagination -->
+    {%- if paginate.pages > 1 -%}
+      <div class="collection-pagination">
+        {%- if paginate.previous -%}
+          <a href="{{ paginate.previous.url }}" class="pagination-btn">&larr; Previous</a>
+        {%- endif -%}
+        <span class="pagination-info">Page {{ paginate.current_page }} of {{ paginate.pages }}</span>
+        {%- if paginate.next -%}
+          <a href="{{ paginate.next.url }}" class="pagination-btn">Next &rarr;</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- endpaginate -%}
+
+  {%- else -%}
+    <!-- Empty state -->
+    <div class="journal-empty">
+      <div class="journal-empty-icon">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <h2 class="journal-empty-title">The journal is being written.</h2>
+      <p class="journal-empty-body">Our first ritual notes are on the way. Come back soon.</p>
+      <a href="/" class="btn-dark">Back to the ritual</a>
+    </div>
+  {%- endif -%}
+
+</section>
+
+{% schema %}
+{
+  "name": "Journal Page",
+  "settings": [
+    { "type": "text",     "id": "eyebrow",   "label": "Eyebrow",      "default": "Archetype Journal" },
+    { "type": "text",     "id": "title",     "label": "Title",        "default": "The ritual," },
+    { "type": "text",     "id": "title_em",  "label": "Title italic", "default": "written down." },
+    { "type": "textarea", "id": "subtitle",  "label": "Subtitle",     "default": "Hair knowledge, alchemist rituals, ingredient stories and the science behind your formula." },
+    { "type": "range",    "id": "per_page",  "label": "Articles per page", "min": 6, "max": 18, "step": 3, "default": 9 }
+  ]
+}
+{% endschema %}

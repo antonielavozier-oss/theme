@@ -1,0 +1,197 @@
+<section class="cart-section">
+  <div class="cart-inner">
+
+    {%- if cart.item_count == 0 -%}
+
+      <div class="cart-empty">
+        <div class="cart-empty-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </div>
+        <h1 class="cart-empty-title">Your cart is empty</h1>
+        <p class="cart-empty-body">Add your first products and start building your ritual.</p>
+        <a href="/collections/all" class="btn-dark cart-empty-cta">Shop Now &rarr;</a>
+      </div>
+
+    {%- else -%}
+
+      <div class="cart-header">
+        <h1 class="cart-title">Your Cart <span class="cart-title-count">({{ cart.item_count }})</span></h1>
+        <a href="/collections/all" class="cart-continue">Continue Shopping</a>
+      </div>
+
+      <div class="cart-layout">
+
+        <!-- Items -->
+        <div class="cart-items">
+          {%- for item in cart.items -%}
+          <div class="cart-item" data-key="{{ item.key }}">
+
+            <a href="{{ item.url }}" class="cart-item-img">
+              {%- if item.image -%}
+                <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.image.alt | escape | default: item.title }}" width="100" height="100" loading="lazy">
+              {%- else -%}
+                <div class="cart-item-img-placeholder"></div>
+              {%- endif -%}
+            </a>
+
+            <div class="cart-item-info">
+              <div class="cart-item-top">
+                <div>
+                  {%- unless item.product.product_type == blank -%}
+                    <p class="cart-item-type">{{ item.product.product_type }}</p>
+                  {%- endunless -%}
+                  <a href="{{ item.url }}" class="cart-item-name">{{ item.product.title }}</a>
+                  {%- unless item.variant.title == 'Default Title' -%}
+                    <p class="cart-item-variant">{{ item.variant.title }}</p>
+                  {%- endunless -%}
+                </div>
+                <button class="cart-item-remove" data-key="{{ item.key }}" aria-label="Remove {{ item.product.title }}">&times;</button>
+              </div>
+
+              <div class="cart-item-bottom">
+                <div class="cart-item-qty">
+                  <button class="cart-qty-btn" data-key="{{ item.key }}" data-action="minus" aria-label="Decrease">&#8722;</button>
+                  <span class="cart-qty-val">{{ item.quantity }}</span>
+                  <button class="cart-qty-btn" data-key="{{ item.key }}" data-action="plus" aria-label="Increase">&#43;</button>
+                </div>
+                <span class="cart-item-price">
+                  {%- if item.original_line_price != item.line_price -%}
+                    <s class="cart-price-compare">{{ item.original_line_price | money }}</s>
+                  {%- endif -%}
+                  {{ item.line_price | money }}
+                </span>
+              </div>
+            </div>
+
+          </div>
+          {%- endfor -%}
+        </div>
+
+        <!-- Summary -->
+        <div class="cart-summary">
+          <div class="cart-summary-inner">
+
+            <h2 class="cart-summary-title">Order Summary</h2>
+
+            <div class="cart-summary-rows">
+              <div class="cart-summary-row">
+                <span>Subtotal</span>
+                <span id="cart-subtotal">{{ cart.total_price | money }}</span>
+              </div>
+              <div class="cart-summary-row cart-summary-row--shipping">
+                <span>Shipping</span>
+                <span>
+                  {%- if cart.total_price >= 7500 -%}
+                    <span class="cart-free-ship">Free</span>
+                  {%- else -%}
+                    Calculated at checkout
+                  {%- endif -%}
+                </span>
+              </div>
+            </div>
+
+            {%- if cart.total_price < 7500 -%}
+              {%- assign remaining = 7500 | minus: cart.total_price -%}
+              <div class="cart-free-ship-bar">
+                <p class="cart-free-ship-msg">
+                  Add <strong>{{ remaining | money }}</strong> more for free shipping
+                </p>
+                <div class="cart-ship-track">
+                  <div class="cart-ship-fill" style="width:{{ cart.total_price | times: 100 | divided_by: 7500 }}%"></div>
+                </div>
+              </div>
+            {%- else -%}
+              <div class="cart-free-ship-bar">
+                <p class="cart-free-ship-msg cart-free-ship-msg--done">
+                  &#10003; You qualify for free shipping!
+                </p>
+              </div>
+            {%- endif -%}
+
+            <div class="cart-summary-total">
+              <span>Total</span>
+              <span id="cart-total">{{ cart.total_price | money }}</span>
+            </div>
+            <p class="cart-tax-note">Taxes and shipping calculated at checkout.</p>
+
+            <!-- Note -->
+            <div class="cart-note-wrap">
+              <label class="cart-note-label" for="cart-note">Order note (optional)</label>
+              <textarea id="cart-note" name="note" class="cart-note-input" rows="2" placeholder="Any special requests...">{{ cart.note }}</textarea>
+            </div>
+
+            <a href="/checkout" class="cart-checkout-btn">
+              Proceed to Checkout &rarr;
+            </a>
+            <a href="/collections/all" class="cart-shop-more">or continue shopping</a>
+
+            <!-- Trust badges -->
+            <div class="cart-trust">
+              <div class="cart-trust-item"><span>&#9670;</span> Secure checkout</div>
+              <div class="cart-trust-item"><span>&#9670;</span> Vegan and Cruelty-Free</div>
+              <div class="cart-trust-item"><span>&#9670;</span> Free returns (14 days)</div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    {%- endif -%}
+
+  </div>
+</section>
+
+<script>
+(function () {
+  // AJAX cart update helpers
+  function updateCart(key, qty) {
+    fetch('/cart/change.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: key, quantity: qty })
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(cart){ location.reload(); })
+    .catch(function(){ location.reload(); });
+  }
+
+  // Remove
+  document.querySelectorAll('.cart-item-remove').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      updateCart(this.dataset.key, 0);
+    });
+  });
+
+  // Qty buttons
+  document.querySelectorAll('.cart-qty-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var key    = this.dataset.key;
+      var action = this.dataset.action;
+      var valEl  = this.closest('.cart-item-qty').querySelector('.cart-qty-val');
+      var cur    = parseInt(valEl.textContent, 10);
+      var next   = action === 'plus' ? cur + 1 : Math.max(0, cur - 1);
+      updateCart(key, next);
+    });
+  });
+
+  // Save note on blur
+  var noteEl = document.getElementById('cart-note');
+  if (noteEl) {
+    noteEl.addEventListener('change', function() {
+      fetch('/cart/update.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ note: noteEl.value })
+      });
+    });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Cart Page",
+  "settings": []
+}
+{% endschema %}

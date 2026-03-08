@@ -1,0 +1,63 @@
+<section class="testimonials-section" id="testimonials" {% if section.settings.bg_color != blank %}style="background:{{ section.settings.bg_color }}"{% endif %}>
+  <div class="testimonials-header reveal">
+    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 class="section-title">{{ section.settings.title }}<br><em>{{ section.settings.title_em }}</em></h2>
+  </div>
+  <div class="testimonials-grid">
+    {%- for i in (1..6) -%}
+      {%- assign text_key   = "review_" | append: i | append: "_text" -%}
+      {%- assign author_key = "review_" | append: i | append: "_author" -%}
+      {%- assign stars_key  = "review_" | append: i | append: "_stars" -%}
+      {%- if section.settings[text_key] != blank -%}
+        <div class="testimonial reveal">
+          <div class="stars">
+            {%- assign star_count = section.settings[stars_key] | default: 5 -%}
+            {%- for s in (1..star_count) -%}&#9733;{%- endfor -%}
+          </div>
+          <p class="testimonial-text">&ldquo;{{ section.settings[text_key] }}&rdquo;</p>
+          {%- if section.settings[author_key] != blank -%}
+            <p class="testimonial-author">&mdash; {{ section.settings[author_key] }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    { "type": "header", "content": "Heading" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Alchemist Circle" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Transformed by" },
+    { "type": "text", "id": "title_em", "label": "Title italic", "default": "the ritual." },
+    { "type": "header", "content": "Review 1" },
+    { "type": "range", "id": "review_1_stars", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 },
+    { "type": "textarea", "id": "review_1_text", "label": "Review text", "default": "Using Archetype is the first time I actually paused during my haircare. I started listening to my hair and myself differently. It changed my mornings." },
+    { "type": "text", "id": "review_1_author", "label": "Author", "default": "Mariana S., Sao Paulo" },
+    { "type": "header", "content": "Review 2" },
+    { "type": "range", "id": "review_2_stars", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 },
+    { "type": "textarea", "id": "review_2_text", "label": "Review text", "default": "I feel respected by this brand. They understand that my hair is not a problem to fix, it is an identity to honor. The ritual is now mine." },
+    { "type": "text", "id": "review_2_author", "label": "Author", "default": "Amelie D., Paris" },
+    { "type": "header", "content": "Review 3" },
+    { "type": "range", "id": "review_3_stars", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 },
+    { "type": "textarea", "id": "review_3_text", "label": "Review text", "default": "There is something deeply satisfying about creating your own formula. I feel proud every time I see my hair after the ritual. Archetype gave me that." },
+    { "type": "text", "id": "review_3_author", "label": "Author", "default": "Sofia M., London" },
+    { "type": "header", "content": "Review 4 (optional)" },
+    { "type": "range", "id": "review_4_stars", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 },
+    { "type": "textarea", "id": "review_4_text", "label": "Review text" },
+    { "type": "text", "id": "review_4_author", "label": "Author" },
+    { "type": "header", "content": "Review 5 (optional)" },
+    { "type": "range", "id": "review_5_stars", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 },
+    { "type": "textarea", "id": "review_5_text", "label": "Review text" },
+    { "type": "text", "id": "review_5_author", "label": "Author" },
+    { "type": "header", "content": "Review 6 (optional)" },
+    { "type": "range", "id": "review_6_stars", "label": "Stars", "min": 1, "max": 5, "step": 1, "default": 5 },
+    { "type": "textarea", "id": "review_6_text", "label": "Review text" },
+    { "type": "text", "id": "review_6_author", "label": "Author" },
+    { "type": "header", "content": "Style" },
+    { "type": "color", "id": "bg_color", "label": "Background color" }
+  ]
+}
+{% endschema %}

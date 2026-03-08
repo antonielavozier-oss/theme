@@ -1,0 +1,104 @@
+{% assign img1 = 'product-1.jpg' | asset_url %}
+{% assign img2 = 'product-3.jpg' | asset_url %}
+{% assign img3 = 'product-2.jpg' | asset_url %}
+{% assign logo_cream = 'logo-cream.png' | asset_url %}
+{% assign logo_icon  = 'logo-icon.png'  | asset_url %}
+<div class="cs-page">
+  <div class="cs-img-panel">
+    <div class="cs-slide active" style="background-image:url('{{ img1 }}')"></div>
+    <div class="cs-slide"        style="background-image:url('{{ img2 }}')"></div>
+    <div class="cs-slide"        style="background-image:url('{{ img3 }}');background-position:center 20%"></div>
+    <div class="cs-img-overlay"></div>
+    <img class="cs-img-logo" src="{{ logo_icon }}" alt="archetype" loading="lazy">
+    <div class="cs-side-dots">
+      <button class="cs-sdot active" data-n="0"></button>
+      <button class="cs-sdot" data-n="1"></button>
+      <button class="cs-sdot" data-n="2"></button>
+    </div>
+    <div class="cs-badge">
+      <div class="cs-badge-tag">archetype® Hair</div>
+      <div class="cs-badge-name" id="cs-badge-name">Foundation &amp; Trinity</div>
+      <div class="cs-badge-line"></div>
+    </div>
+  </div>
+  <div class="cs-content-panel">
+    <div class="cs-glow-1"></div><div class="cs-glow-2"></div>
+    <div class="cs-top-bar">
+      <img class="cs-logo-img" src="{{ logo_cream }}" alt="archetype">
+      <span class="cs-top-tag">Listen to your heart hair.</span>
+    </div>
+    <div class="cs-ticker">
+      <div class="cs-ticker-track">
+        <span class="cs-ticker-item">Algo novo está chegando<span class="cs-ticker-sep">◆</span></span>
+        <span class="cs-ticker-item">Quelque chose de nouveau arrive<span class="cs-ticker-sep">◆</span></span>
+        <span class="cs-ticker-item">Algo nuevo está llegando<span class="cs-ticker-sep">◆</span></span>
+        <span class="cs-ticker-item">Etwas Neues kommt<span class="cs-ticker-sep">◆</span></span>
+        <span class="cs-ticker-item">Qualcosa di nuovo sta arrivando<span class="cs-ticker-sep">◆</span></span>
+        <span class="cs-ticker-item">Iets nieuws komt eraan<span class="cs-ticker-sep">◆</span></span>
+        <span class="cs-ticker-item">Something new is coming<span class="cs-ticker-sep">◆</span></span>
+        <span class="cs-ticker-item">Algo de novo está a chegar<span class="cs-ticker-sep">◆</span></span>
+        <span class="cs-ticker-item">Algo novo está chegando<span class="cs-ticker-sep">◆</span></span>
+        <span class="cs-ticker-item">Quelque chose de nouveau arrive<span class="cs-ticker-sep">◆</span></span>
+        <span class="cs-ticker-item">Algo nuevo está llegando<span class="cs-ticker-sep">◆</span></span>
+        <span class="cs-ticker-item">Etwas Neues kommt<span class="cs-ticker-sep">◆</span></span>
+        <span class="cs-ticker-item">Qualcosa di nuovo sta arrivando<span class="cs-ticker-sep">◆</span></span>
+        <span class="cs-ticker-item">Iets nieuws komt eraan<span class="cs-ticker-sep">◆</span></span>
+        <span class="cs-ticker-item">Something new is coming<span class="cs-ticker-sep">◆</span></span>
+        <span class="cs-ticker-item">Algo de novo está a chegar<span class="cs-ticker-sep">◆</span></span>
+      </div>
+    </div>
+    <div class="cs-main">
+      <p class="cs-eyebrow">It's not a routine, it's a ritual.</p>
+      <h1 class="cs-headline">Algo novo<em>está chegando.</em></h1>
+      <p class="cs-sub">Uma nova era do cuidado capilar personalizado. Natureza, ciência e ritual — unidos em cada frasco.</p>
+      <div class="cs-rule"><span>Em breve &middot; Bientôt &middot; Coming soon</span></div>
+      <div class="cs-lang-grid">
+        <div class="cs-lang-cell"><span class="cs-lp">Algo novo está chegando</span><span class="cs-ln">Português · Brasil</span></div>
+        <div class="cs-lang-cell"><span class="cs-lp">Quelque chose de nouveau arrive</span><span class="cs-ln">Français</span></div>
+        <div class="cs-lang-cell"><span class="cs-lp">Algo nuevo está llegando</span><span class="cs-ln">Español</span></div>
+        <div class="cs-lang-cell"><span class="cs-lp">Etwas Neues kommt</span><span class="cs-ln">Deutsch</span></div>
+        <div class="cs-lang-cell"><span class="cs-lp">Qualcosa di nuovo sta arrivando</span><span class="cs-ln">Italiano</span></div>
+        <div class="cs-lang-cell"><span class="cs-lp">Iets nieuws komt eraan</span><span class="cs-ln">Nederlands</span></div>
+        <div class="cs-lang-cell"><span class="cs-lp">Something new is coming</span><span class="cs-ln">English</span></div>
+        <div class="cs-lang-cell"><span class="cs-lp">Algo de novo está a chegar</span><span class="cs-ln">Português · Portugal</span></div>
+      </div>
+      <div class="cs-countdown">
+        <div class="cs-cu"><span class="cs-cn" id="cs-cd-d">00</span><span class="cs-cl">Dias</span></div>
+        <div class="cs-cu"><span class="cs-cn" id="cs-cd-h">00</span><span class="cs-cl">Horas</span></div>
+        <div class="cs-cu"><span class="cs-cn" id="cs-cd-m">00</span><span class="cs-cl">Min</span></div>
+        <div class="cs-cu"><span class="cs-cn" id="cs-cd-s">00</span><span class="cs-cl">Seg</span></div>
+      </div>
+      <div class="cs-products-strip">
+        <div class="cs-prod"><span class="cs-prod-name">Foundation</span><span class="cs-prod-type">Neutral Shampoo &middot; &euro;32,90</span></div>
+        <div class="cs-prod"><span class="cs-prod-name">Trinity</span><span class="cs-prod-type">3-in-1 Hair Cream &middot; &euro;29,90</span></div>
+        <div class="cs-prod"><span class="cs-prod-name">Nectar</span><span class="cs-prod-type">Hydrating Booster &middot; &euro;15,00</span></div>
+        <div class="cs-prod"><span class="cs-prod-name">Titan</span><span class="cs-prod-type">Fortifying Booster &middot; &euro;15,00</span></div>
+        <div class="cs-prod"><span class="cs-prod-name">Wavemaker</span><span class="cs-prod-type">Curl Activator Booster &middot; &euro;16,00</span></div>
+      </div>
+      <div class="cs-form-wrap">
+        {% form 'customer' %}
+          <input type="hidden" name="contact[tags]" value="newsletter,early-access">
+          <div class="cs-form-row">
+            <input type="email" name="contact[email]" placeholder="Seu e-mail para acesso antecipado" required>
+            <input type="submit" value="Notifique-me">
+          </div>
+        {% endform %}
+        {% if customer %}<div class="cs-success" style="display:block">Merci &middot; Obrigada &middot; Gracias &middot; Grazie &middot; Danke ◆</div>{% endif %}
+        <p class="cs-form-note">Acesso antecipado · Lançamentos exclusivos · Sem spam, promessa de alquimista.</p>
+      </div>
+    </div>
+    <div class="cs-bottom-bar">
+      <div class="cs-socials">
+        <a href="https://archetypehair.com" target="_blank">archetypehair.com</a>
+        <a href="#">Instagram</a><a href="#">TikTok</a>
+      </div>
+      <span class="cs-copy">&copy; {{ 'now' | date: '%Y' }} archetype®</span>
+    </div>
+  </div>
+</div>
+<script>window.AT_LAUNCH="2025-09-15T00:00:00";window.AT_BADGES=["Foundation & Trinity","Nectar Booster","The Collection"];</script>
+{% schema %}
+{ "name": "Coming Soon", "settings": [
+    {"type":"text","id":"launch_date","label":"Launch date","default":"2025-09-15T00:00:00"}
+] }
+{% endschema %}

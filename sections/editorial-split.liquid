@@ -1,0 +1,95 @@
+{%- assign img_a = 'model-a-wide.jpg' | asset_url -%}
+{%- assign img_b = 'model-b-full.jpg' | asset_url -%}
+{%- assign img_c = 'product-1.jpg' | asset_url -%}
+{%- assign img_d = 'model-b-overhead.jpg' | asset_url -%}
+
+<section class="editorial-section">
+
+  <!-- Block 1: image left, text right -->
+  <div class="editorial-row">
+    <div class="editorial-img editorial-img--tall">
+      <img src="{{ img_a }}" alt="Archetype — Foundation" loading="lazy">
+    </div>
+    <div class="editorial-text editorial-text--right">
+      <div class="deco-line"></div>
+      <p class="eyebrow">{{ section.settings.block1_eyebrow | default: 'The foundation of everything.' }}</p>
+      <h2 class="section-title">{{ section.settings.block1_title | default: 'Foundation' }}<br><em>{{ section.settings.block1_title_em | default: 'and Trinity' }}</em></h2>
+      <p class="body-text">{{ section.settings.block1_body | default: 'A gentle, effective formula that cleanses and nourishes all hair types. The perfect canvas for your personalized ritual.' }}</p>
+      <a href="{{ section.settings.block1_url | default: '/collections/all' }}" class="btn-dark">{{ section.settings.block1_cta | default: 'Discover Foundation' }}</a>
+    </div>
+  </div>
+
+  <!-- Block 2: text left, image right -->
+  <div class="editorial-row editorial-row--reverse">
+    <div class="editorial-text editorial-text--left">
+      <div class="deco-line"></div>
+      <p class="eyebrow">{{ section.settings.block2_eyebrow | default: 'Personalize your ritual.' }}</p>
+      <h2 class="section-title">{{ section.settings.block2_title | default: 'Boosters' }}<br><em>{{ section.settings.block2_title_em | default: 'made for you.' }}</em></h2>
+      <p class="body-text">{{ section.settings.block2_body | default: 'Moisture. Repair. Scalp health. Frizz control. Choose your targeted boosters and mix them into your base for a formula that is entirely yours.' }}</p>
+      <a href="{{ section.settings.block2_url | default: '/collections/all' }}" class="btn-dark">{{ section.settings.block2_cta | default: 'View Boosters' }}</a>
+    </div>
+    <div class="editorial-img editorial-img--tall">
+      <img src="{{ img_b }}" alt="Archetype — Boosters" loading="lazy">
+    </div>
+  </div>
+
+  <!-- Block 3: full-width image with overlaid quote — like Maiweskin's dark quote section -->
+  <div class="editorial-fullwidth">
+    <div class="editorial-fw-img">
+      <img src="{{ img_c }}" alt="Archetype — Nectar" loading="lazy">
+    </div>
+    <div class="editorial-fw-overlay">
+      <blockquote class="editorial-quote">
+        <span class="quote-mark">&ldquo;</span>
+        {{ section.settings.quote | default: 'The best version of yourself begins when you listen. Not to the industry, but to you.' }}
+        <span class="quote-mark">&rdquo;</span>
+      </blockquote>
+      <p class="quote-attr">{{ section.settings.quote_attr | default: '— Archetype®' }}</p>
+    </div>
+  </div>
+
+  <!-- Block 4: side-by-side two images + minimal caption row -->
+  <div class="editorial-duo">
+    <div class="editorial-duo-img">
+      <img src="{{ img_d }}" alt="Archetype overhead" loading="lazy">
+    </div>
+    <div class="editorial-duo-text">
+      <p class="eyebrow">{{ section.settings.duo_eyebrow | default: 'Nectar — Pure Botanical Oil' }}</p>
+      <h3 class="editorial-duo-title">{{ section.settings.duo_title | default: 'Your alchemy' }}<br><em>{{ section.settings.duo_title_em | default: 'starts here.' }}</em></h3>
+      <p class="body-text">{{ section.settings.duo_body | default: '60 percent of women are dissatisfied with their haircare. ARCHETYPE was built for the other 40. And for every woman ready to join them.' }}</p>
+      <div class="editorial-duo-certs">
+        <span>Vegan</span>
+        <span>Cruelty-Free</span>
+        <span>Made in Belgium</span>
+        <span>No Sulfates</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Editorial Split",
+  "settings": [
+    { "type": "text",     "id": "block1_eyebrow",  "label": "Block 1 eyebrow",  "default": "Ancient wisdom, modern ritual." },
+    { "type": "text",     "id": "block1_title",    "label": "Block 1 title",    "default": "The base of" },
+    { "type": "text",     "id": "block1_title_em", "label": "Block 1 title italic", "default": "your alchemy." },
+    { "type": "textarea","id": "block1_body",     "label": "Block 1 body" },
+    { "type": "text",     "id": "block1_cta",      "label": "Block 1 CTA",      "default": "Discover Foundation" },
+    { "type": "url",      "id": "block1_url",      "label": "Block 1 link" },
+    { "type": "text",     "id": "block2_eyebrow",  "label": "Block 2 eyebrow",  "default": "Craft your formula." },
+    { "type": "text",     "id": "block2_title",    "label": "Block 2 title",    "default": "Targeted" },
+    { "type": "text",     "id": "block2_title_em", "label": "Block 2 title italic", "default": "by you." },
+    { "type": "textarea","id": "block2_body",     "label": "Block 2 body" },
+    { "type": "text",     "id": "block2_cta",      "label": "Block 2 CTA",      "default": "View Boosters" },
+    { "type": "url",      "id": "block2_url",      "label": "Block 2 link" },
+    { "type": "textarea","id": "quote",           "label": "Full-width quote" },
+    { "type": "text",     "id": "quote_attr",      "label": "Quote attribution", "default": "— Archetype®" },
+    { "type": "text",     "id": "duo_eyebrow",     "label": "Duo eyebrow",      "default": "Nature as your co-creator." },
+    { "type": "text",     "id": "duo_title",       "label": "Duo title",        "default": "One hair." },
+    { "type": "text",     "id": "duo_title_em",    "label": "Duo title italic", "default": "Endless possibilities." },
+    { "type": "textarea","id": "duo_body",        "label": "Duo body text" }
+  ]
+}
+{% endschema %}

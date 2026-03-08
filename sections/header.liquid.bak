@@ -1,0 +1,23 @@
+{% assign logo_dark = 'logo-dark.png' | asset_url %}
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <a href="/" class="header-logo">
+      <img src="{{ logo_dark }}" alt="{{ shop.name }}" height="28">
+    </a>
+    <nav aria-label="Main navigation">
+      <ul class="header-nav">
+        <li><a href="/collections/all">Shop</a></li>
+        <li><a href="#ritual">Ritual</a></li>
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#ingredients">Ingredients</a></li>
+        <li><a href="#">Journal</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a href="/search" aria-label="Search">Search</a>
+      <a href="/account" aria-label="Account">Account</a>
+      <a href="/cart" class="btn-cart" aria-label="Cart">Cart ({{ cart.item_count }})</a>
+    </div>
+  </div>
+</header>
+{% schema %}{"name":"Header","settings":[]}{% endschema %}

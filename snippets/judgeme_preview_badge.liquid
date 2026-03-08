@@ -1,0 +1,8 @@
+{% comment %} Judge.me Preview Badge {% endcomment %}
+{% assign jdgm_product = jdgm_product | default: product %}
+<div class='jdgm-widget jdgm-preview-badge'
+  data-id='{{ jdgm_product.id }}'
+  data-product-title='{{ jdgm_product.title | escape }}'
+  data-product-handle='{{ jdgm_product.handle }}'>
+  {{- jdgm_product.metafields.judgeme.badge -}}
+</div>

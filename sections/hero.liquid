@@ -1,0 +1,158 @@
+<section class="hero" id="hero">
+
+  {%- comment -%} SLIDE 1 {%- endcomment -%}
+  {%- if section.settings.slide1_enabled -%}
+  
+<div class="hero-slide active">
+    {%- if section.settings.slide1_image != blank -%}
+      <div class="hero-slide-bg" style="background-image:url('{{ section.settings.slide1_image | image_url: width: 2000 }}');background-position:{{ section.settings.slide1_focal }}"></div>
+    {%- else -%}
+      <div class="hero-slide-bg" style="background-image:url('{{ 'model-a-portrait.jpg' | asset_url }}');background-position:{{ section.settings.slide1_focal }}"></div>
+    {%- endif -%}
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <p class="hero-eyebrow">{{ section.settings.slide1_eyebrow }}</p>
+        <h1 class="hero-title">{{ section.settings.slide1_title }}<br>{{ section.settings.slide1_title_and }} <em>{{ section.settings.slide1_title_em }}</em></h1>
+        <p class="hero-body">{{ section.settings.slide1_body }}</p>
+        <div class="hero-btns">
+          <a href="{{ section.settings.slide1_btn1_url }}" class="btn-primary">{{ section.settings.slide1_btn1 }}</a>
+          {%- if section.settings.slide1_btn2 != blank -%}
+            <a href="{{ section.settings.slide1_btn2_url }}" class="btn-outline">{{ section.settings.slide1_btn2 }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+  {%- endif -%}
+
+  {%- comment -%} SLIDE 2 {%- endcomment -%}
+  {%- if section.settings.slide2_enabled -%}
+  <div class="hero-slide">
+    {%- if section.settings.slide2_image != blank -%}
+      <div class="hero-slide-bg" style="background-image:url('{{ section.settings.slide2_image | image_url: width: 2000 }}');background-position:{{ section.settings.slide2_focal }}"></div>
+    {%- else -%}
+      <div class="hero-slide-bg" style="background-image:url('{{ 'product-3.jpg' | asset_url }}');background-position:{{ section.settings.slide2_focal }}"></div>
+    {%- endif -%}
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <p class="hero-eyebrow">{{ section.settings.slide2_eyebrow }}</p>
+        <h1 class="hero-title">{{ section.settings.slide2_title }}<br><em>{{ section.settings.slide2_title_em }}</em></h1>
+        <p class="hero-body">{{ section.settings.slide2_body }}</p>
+        <div class="hero-btns">
+          <a href="{{ section.settings.slide2_btn1_url }}" class="btn-primary">{{ section.settings.slide2_btn1 }}</a>
+          {%- if section.settings.slide2_btn2 != blank -%}
+            <a href="{{ section.settings.slide2_btn2_url }}" class="btn-outline">{{ section.settings.slide2_btn2 }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+  {%- endif -%}
+
+  {%- comment -%} SLIDE 3 {%- endcomment -%}
+  {%- if section.settings.slide3_enabled -%}
+  <div class="hero-slide">
+    {%- if section.settings.slide3_image != blank -%}
+      <div class="hero-slide-bg" style="background-image:url('{{ section.settings.slide3_image | image_url: width: 2000 }}');background-position:{{ section.settings.slide3_focal }}"></div>
+    {%- else -%}
+      <div class="hero-slide-bg" style="background-image:url('{{ 'product-1.jpg' | asset_url }}');background-position:{{ section.settings.slide3_focal }}"></div>
+    {%- endif -%}
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <p class="hero-eyebrow">{{ section.settings.slide3_eyebrow }}</p>
+        <h1 class="hero-title">{{ section.settings.slide3_title }}<br><em>{{ section.settings.slide3_title_em }}</em></h1>
+        <p class="hero-body">{{ section.settings.slide3_body }}</p>
+        <div class="hero-btns">
+          <a href="{{ section.settings.slide3_btn1_url }}" class="btn-primary">{{ section.settings.slide3_btn1 }}</a>
+          {%- if section.settings.slide3_btn2 != blank -%}
+            <a href="{{ section.settings.slide3_btn2_url }}" class="btn-outline">{{ section.settings.slide3_btn2 }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+  {%- endif -%}
+
+  <div class="hero-dots">
+    {%- if section.settings.slide1_enabled -%}<button class="hero-dot active" aria-label="Slide 1"></button>{%- endif -%}
+    {%- if section.settings.slide2_enabled -%}<button class="hero-dot" aria-label="Slide 2"></button>{%- endif -%}
+    {%- if section.settings.slide3_enabled -%}<button class="hero-dot" aria-label="Slide 3"></button>{%- endif -%}
+  </div>
+
+  {%- if section.settings.show_scroll_hint -%}
+  <div class="hero-scroll" aria-hidden="true">
+    <div class="hero-scroll-line"></div>
+    <span>{{ section.settings.scroll_label }}</span>
+  </div>
+  {%- endif -%}
+
+</section>
+
+{% schema %}
+{
+  "name": "Hero Slideshow",
+  "settings": [
+    { "type": "header", "content": "Global" },
+    { "type": "checkbox", "id": "show_scroll_hint", "label": "Show scroll indicator", "default": true },
+    { "type": "text", "id": "scroll_label", "label": "Scroll label", "default": "Scroll" },
+    { "type": "header", "content": "Slide 1" },
+    { "type": "checkbox", "id": "slide1_enabled", "label": "Enable slide 1", "default": true },
+    { "type": "image_picker", "id": "slide1_image", "label": "Image" },
+    { "type": "select", "id": "slide1_focal", "label": "Image focus", "default": "center center", "options": [
+        { "value": "center center", "label": "Center" },
+        { "value": "center top", "label": "Top" },
+        { "value": "center bottom", "label": "Bottom" },
+        { "value": "left center", "label": "Left" },
+        { "value": "right center", "label": "Right" }
+    ]},
+    { "type": "text", "id": "slide1_eyebrow", "label": "Eyebrow", "default": "Before chemistry was a science, there was alchemy." },
+    { "type": "text", "id": "slide1_title", "label": "Title", "default": "Meet your" },
+    { "type": "text", "id": "slide1_title_and", "label": "Title connector", "default": "hair" },
+    { "type": "text", "id": "slide1_title_em", "label": "Title italic", "default": "ritual." },
+    { "type": "textarea", "id": "slide1_body", "label": "Body text", "default": "A gentle base, personalized with targeted boosters. Crafted for every hair type. Every season. Every version of you." },
+    { "type": "text", "id": "slide1_btn1", "label": "Button 1 label", "default": "Start Your Ritual" },
+    { "type": "url", "id": "slide1_btn1_url", "label": "Button 1 link" },
+    { "type": "text", "id": "slide1_btn2", "label": "Button 2 label", "default": "Our Story" },
+    { "type": "url", "id": "slide1_btn2_url", "label": "Button 2 link" },
+    { "type": "header", "content": "Slide 2" },
+    { "type": "checkbox", "id": "slide2_enabled", "label": "Enable slide 2", "default": true },
+    { "type": "image_picker", "id": "slide2_image", "label": "Image" },
+    { "type": "select", "id": "slide2_focal", "label": "Image focus", "default": "center center", "options": [
+        { "value": "center center", "label": "Center" },
+        { "value": "center top", "label": "Top" },
+        { "value": "center bottom", "label": "Bottom" },
+        { "value": "left center", "label": "Left" },
+        { "value": "right center", "label": "Right" }
+    ]},
+    { "type": "text", "id": "slide2_eyebrow", "label": "Eyebrow", "default": "One hair. Endless possibilities." },
+    { "type": "text", "id": "slide2_title", "label": "Title", "default": "Your formula" },
+    { "type": "text", "id": "slide2_title_em", "label": "Title italic", "default": "begins here." },
+    { "type": "textarea", "id": "slide2_body", "label": "Body text", "default": "Choose your boosters. Mix your essence. Create a formula as unique as you are." },
+    { "type": "text", "id": "slide2_btn1", "label": "Button 1 label", "default": "Explore Boosters" },
+    { "type": "url", "id": "slide2_btn1_url", "label": "Button 1 link" },
+    { "type": "text", "id": "slide2_btn2", "label": "Button 2 label", "default": "How It Works" },
+    { "type": "url", "id": "slide2_btn2_url", "label": "Button 2 link" },
+    { "type": "header", "content": "Slide 3" },
+    { "type": "checkbox", "id": "slide3_enabled", "label": "Enable slide 3", "default": true },
+    { "type": "image_picker", "id": "slide3_image", "label": "Image" },
+    { "type": "select", "id": "slide3_focal", "label": "Image focus", "default": "center top", "options": [
+        { "value": "center center", "label": "Center" },
+        { "value": "center top", "label": "Top" },
+        { "value": "center bottom", "label": "Bottom" },
+        { "value": "left center", "label": "Left" },
+        { "value": "right center", "label": "Right" }
+    ]},
+    { "type": "text", "id": "slide3_eyebrow", "label": "Eyebrow", "default": "Pause. Breathe. Reflect." },
+    { "type": "text", "id": "slide3_title", "label": "Title", "default": "What does your" },
+    { "type": "text", "id": "slide3_title_em", "label": "Title italic", "default": "hair need today?" },
+    { "type": "textarea", "id": "slide3_body", "label": "Body text", "default": "ARCHETYPE is an invitation to slow down. To listen. To transform your haircare into an act of self-knowledge." },
+    { "type": "text", "id": "slide3_btn1", "label": "Button 1 label", "default": "Build My Ritual" },
+    { "type": "url", "id": "slide3_btn1_url", "label": "Button 1 link" },
+    { "type": "text", "id": "slide3_btn2", "label": "Button 2 label", "default": "Our Story" },
+    { "type": "url", "id": "slide3_btn2_url", "label": "Button 2 link" }
+  ]
+}
+{% endschema %}

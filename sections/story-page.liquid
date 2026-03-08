@@ -1,0 +1,183 @@
+<div class="story-pg">
+
+  <!-- ── HERO ── -->
+  <div class="spg-hero">
+    <div class="spg-hero-text">
+      <p class="eyebrow">{{ section.settings.eyebrow | default: 'Our Story' }}</p>
+      <h1 class="spg-title">
+        {{ section.settings.hero_title | default: 'We are the reflection' }}<br>
+        <em>{{ section.settings.hero_title_em | default: 'of our ancestors.' }}</em>
+      </h1>
+    </div>
+    {%- if section.settings.hero_image != blank -%}
+      <div class="spg-hero-img">
+        <img src="{{ section.settings.hero_image | image_url: width: 1400 }}" alt="Our Story">
+        <div class="spg-hero-img-overlay"></div>
+      </div>
+    {%- else -%}
+      <div class="spg-hero-img spg-hero-img--placeholder">
+        <div class="spg-hero-img-overlay"></div>
+      </div>
+    {%- endif -%}
+    <div class="spg-hero-manifesto">
+      <p>{{ section.settings.manifesto | default: 'There is a special connection between you and your hair. A language that needs no words. A glance in the mirror. A gentle touch with your fingertips. A peaceful hairstyle after a warm shower. These moments spark the deepest conversations of all.' }}</p>
+    </div>
+  </div>
+
+  <!-- ── MANIFESTO QUOTE ── -->
+  <div class="spg-manifesto-full">
+    <div class="spg-manifesto-inner">
+      <div class="spg-manifesto-deco" aria-hidden="true">
+        <svg viewBox="0 0 400 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M200 20 C300 50, 380 130, 350 200 C320 270, 200 300, 120 260 C40 220, 20 130, 60 70 C100 10, 150 -5, 200 20Z" stroke="rgba(181,118,42,0.12)" stroke-width="1.5" fill="rgba(181,118,42,0.025)"/>
+        </svg>
+      </div>
+      <blockquote class="spg-manifesto-quote">
+        <p>{{ section.settings.manifesto_quote_1 | default: 'Between you and your hair.' }}</p>
+        <p>{{ section.settings.manifesto_quote_2 | default: 'And vice versa.' }}</p>
+        <p>{{ section.settings.manifesto_quote_3 | default: 'Each wash feels like a ritual following the rhythm of nature.' }}</p>
+      </blockquote>
+      <p class="spg-manifesto-attr">{{ section.settings.manifesto_attr | default: '— Archetype Manifesto' }}</p>
+    </div>
+  </div>
+
+  <!-- ── FOUNDER SECTION ── -->
+  <div class="spg-founder">
+    <div class="spg-founder-img-wrap">
+      {%- if section.settings.founder_image != blank -%}
+        <img src="{{ section.settings.founder_image | image_url: width: 800 }}" alt="{{ section.settings.founder_name | default: 'Founder' }}" class="spg-founder-img">
+      {%- else -%}
+        <div class="spg-founder-img spg-founder-img--placeholder"></div>
+      {%- endif -%}
+      <!-- Organic shape overlay -->
+      <div class="spg-founder-shape" aria-hidden="true">
+        <svg viewBox="0 0 300 400" fill="none"><path d="M150 10 C230 40, 290 130, 260 220 C230 310, 130 350, 70 310 C10 270, 10 160, 50 90 C90 20, 130 -5, 150 10Z" fill="rgba(181,118,42,0.08)"/></svg>
+      </div>
+    </div>
+    <div class="spg-founder-text">
+      <p class="eyebrow">{{ section.settings.founder_eyebrow | default: 'The founder' }}</p>
+      <h2 class="spg-founder-title">{{ section.settings.founder_title | default: 'Born from curiosity,' }}<em> {{ section.settings.founder_title_em | default: 'rooted in nature.' }}</em></h2>
+      <div class="spg-founder-body">
+        <p>{{ section.settings.founder_p1 | default: 'ARCHETYPE was founded by a Brazilian woman living in Brussels. Surrounded by the richness of Brazilian botanical heritage and the rigour of European science, she spent three years researching how ancient natural ingredients could be perfected for modern hair.' }}</p>
+        <p>{{ section.settings.founder_p2 | default: 'The brand was born from a simple, radical belief: haircare should not be one-size-fits-all. Every person deserves a formula crafted for their unique hair, their unique life, and their unique moment.' }}</p>
+        <p>{{ section.settings.founder_p3 | default: 'ARCHETYPE gives you the ingredients. You become the alchemist.' }}</p>
+      </div>
+      {%- if section.settings.founder_name != blank -%}
+        <p class="spg-founder-name">{{ section.settings.founder_name }}</p>
+        <p class="spg-founder-role">{{ section.settings.founder_role | default: 'Founder, ARCHETYPE' }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <!-- ── VALUES ── -->
+  <div class="spg-values">
+    <div class="spg-values-header">
+      <p class="eyebrow">{{ section.settings.values_eyebrow | default: 'What we stand for' }}</p>
+      <h2 class="spg-values-title">{{ section.settings.values_title | default: 'Nature. Scientists. You.' }}</h2>
+    </div>
+    <div class="spg-values-grid">
+
+      <div class="spg-value-item">
+        <div class="spg-value-num">01</div>
+        <h3 class="spg-value-name">{{ section.settings.val1_name | default: 'Ancient wisdom' }}</h3>
+        <p class="spg-value-desc">{{ section.settings.val1_desc | default: 'Our formulas are born in nature. We honour the knowledge of past civilisations who understood the power of botanicals long before the modern lab existed.' }}</p>
+      </div>
+
+      <div class="spg-value-item">
+        <div class="spg-value-num">02</div>
+        <h3 class="spg-value-name">{{ section.settings.val2_name | default: 'Modern science' }}</h3>
+        <p class="spg-value-desc">{{ section.settings.val2_desc | default: 'Every ingredient is tested and perfected in laboratories. We believe nature and science are not opposites. They are collaborators in the pursuit of healthy, beautiful hair.' }}</p>
+      </div>
+
+      <div class="spg-value-item">
+        <div class="spg-value-num">03</div>
+        <h3 class="spg-value-name">{{ section.settings.val3_name | default: 'You, the alchemist' }}</h3>
+        <p class="spg-value-desc">{{ section.settings.val3_desc | default: 'No two hairs are the same. We provide the ingredients. You mix, adapt and create the perfect formula for your hair, your season, your identity.' }}</p>
+      </div>
+
+      <div class="spg-value-item">
+        <div class="spg-value-num">04</div>
+        <h3 class="spg-value-name">{{ section.settings.val4_name | default: 'Sustainability' }}</h3>
+        <p class="spg-value-desc">{{ section.settings.val4_desc | default: 'From regenerative agriculture to recycled packaging, every decision we make considers the planet. We believe the earth that gives us our ingredients deserves to be protected.' }}</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── FULL MANIFESTO ── -->
+  <div class="spg-manifesto-block">
+    <div class="spg-manifesto-block-inner">
+      <p class="eyebrow">{{ section.settings.manifesto_eyebrow | default: 'Our manifesto' }}</p>
+      <div class="spg-manifesto-lines">
+        <p>There is a special connection between you and your hair.</p>
+        <p>A language that needs no words.</p>
+        <p>A glance in the mirror. A gentle touch with your fingertips.</p>
+        <p>A peaceful hairstyle after a warm shower.</p>
+        <p>These moments spark the deepest conversations of all —</p>
+        <p><strong>Between you and your hair. And vice versa.</strong></p>
+        <p>Each wash feels like a ritual following the rhythm of nature.</p>
+        <p>The moon watches over your hair, weaving her phases into every strand.</p>
+        <p>The energy of the earth blending with your own.</p>
+        <p>A healing conversation in silence.</p>
+        <p>Your strands and curls expressing themselves.</p>
+        <p><em>When in doubt, listen to your hair.</em></p>
+      </div>
+      <p class="spg-manifesto-brand">Archetype — Listen to your heart hair.</p>
+    </div>
+  </div>
+
+  <!-- ── CTA ── -->
+  <div class="spg-cta">
+    <h2 class="spg-cta-title">{{ section.settings.cta_title | default: 'Ready to begin your ritual?' }}</h2>
+    <p class="spg-cta-sub">{{ section.settings.cta_sub | default: 'We provide the ingredients. You be the alchemist.' }}</p>
+    <a href="{{ section.settings.cta_url | default: '/collections/all' }}" class="btn-dark">{{ section.settings.cta_label | default: 'Explore the collection' }}</a>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Our Story Page",
+  "settings": [
+    { "type": "header",   "content": "Hero" },
+    { "type": "text",     "id": "eyebrow",          "label": "Eyebrow",          "default": "Our Story" },
+    { "type": "text",     "id": "hero_title",        "label": "Hero title",       "default": "We are the reflection" },
+    { "type": "text",     "id": "hero_title_em",     "label": "Hero title italic", "default": "of our ancestors." },
+    { "type": "image_picker", "id": "hero_image",   "label": "Hero image" },
+    { "type": "textarea", "id": "manifesto",         "label": "Hero manifesto text", "default": "There is a special connection between you and your hair. A language that needs no words. A glance in the mirror. A gentle touch with your fingertips." },
+    { "type": "header",   "content": "Manifesto quote" },
+    { "type": "text",     "id": "manifesto_quote_1", "label": "Quote line 1",     "default": "Between you and your hair." },
+    { "type": "text",     "id": "manifesto_quote_2", "label": "Quote line 2",     "default": "And vice versa." },
+    { "type": "text",     "id": "manifesto_quote_3", "label": "Quote line 3",     "default": "Each wash feels like a ritual following the rhythm of nature." },
+    { "type": "text",     "id": "manifesto_attr",    "label": "Attribution",      "default": "Archetype Manifesto" },
+    { "type": "header",   "content": "Founder" },
+    { "type": "image_picker", "id": "founder_image", "label": "Founder photo" },
+    { "type": "text",     "id": "founder_eyebrow",   "label": "Eyebrow",          "default": "The founder" },
+    { "type": "text",     "id": "founder_title",     "label": "Title",            "default": "Born from curiosity," },
+    { "type": "text",     "id": "founder_title_em",  "label": "Title italic",     "default": "rooted in nature." },
+    { "type": "textarea", "id": "founder_p1",        "label": "Paragraph 1",      "default": "ARCHETYPE was founded by a Brazilian woman living in Brussels. Surrounded by the richness of Brazilian botanical heritage and the rigour of European science, she spent three years researching how ancient natural ingredients could be perfected for modern hair." },
+    { "type": "textarea", "id": "founder_p2",        "label": "Paragraph 2",      "default": "The brand was born from a simple, radical belief: haircare should not be one-size-fits-all. Every person deserves a formula crafted for their unique hair, their unique life, and their unique moment." },
+    { "type": "textarea", "id": "founder_p3",        "label": "Paragraph 3",      "default": "ARCHETYPE gives you the ingredients. You become the alchemist." },
+    { "type": "text",     "id": "founder_name",      "label": "Founder name" },
+    { "type": "text",     "id": "founder_role",      "label": "Founder role",     "default": "Founder, ARCHETYPE" },
+    { "type": "header",   "content": "Values" },
+    { "type": "text",     "id": "values_eyebrow",    "label": "Eyebrow",          "default": "What we stand for" },
+    { "type": "text",     "id": "values_title",      "label": "Title",            "default": "Nature. Scientists. You." },
+    { "type": "text",     "id": "val1_name",         "label": "Value 1 name",     "default": "Ancient wisdom" },
+    { "type": "textarea", "id": "val1_desc",         "label": "Value 1 desc",     "default": "Our formulas are born in nature. We honour the knowledge of past civilisations who understood the power of botanicals long before the modern lab existed." },
+    { "type": "text",     "id": "val2_name",         "label": "Value 2 name",     "default": "Modern science" },
+    { "type": "textarea", "id": "val2_desc",         "label": "Value 2 desc",     "default": "Every ingredient is tested and perfected in laboratories. We believe nature and science are not opposites. They are collaborators." },
+    { "type": "text",     "id": "val3_name",         "label": "Value 3 name",     "default": "You, the alchemist" },
+    { "type": "textarea", "id": "val3_desc",         "label": "Value 3 desc",     "default": "No two hairs are the same. We provide the ingredients. You mix, adapt and create the perfect formula for your hair, your season, your identity." },
+    { "type": "text",     "id": "val4_name",         "label": "Value 4 name",     "default": "Sustainability" },
+    { "type": "textarea", "id": "val4_desc",         "label": "Value 4 desc",     "default": "From regenerative agriculture to recycled packaging, every decision we make considers the planet." },
+    { "type": "header",   "content": "Manifesto section" },
+    { "type": "text",     "id": "manifesto_eyebrow", "label": "Eyebrow",          "default": "Our manifesto" },
+    { "type": "header",   "content": "CTA" },
+    { "type": "text",     "id": "cta_title",         "label": "CTA title",        "default": "Ready to begin your ritual?" },
+    { "type": "text",     "id": "cta_sub",           "label": "CTA subtitle",     "default": "We provide the ingredients. You be the alchemist." },
+    { "type": "url",      "id": "cta_url",           "label": "CTA URL" },
+    { "type": "text",     "id": "cta_label",         "label": "CTA button label", "default": "Explore the collection" }
+  ]
+}
+{% endschema %}

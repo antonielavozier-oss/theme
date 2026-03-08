@@ -1,0 +1,40 @@
+{
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {}
+    },
+    "header": {
+      "type": "header",
+      "settings": {}
+    },
+    "founder-page": {
+      "type": "founder-page",
+      "settings": {
+        "eyebrow": "The Founder",
+        "title": "A fierce woman",
+        "title_em": "who creates her own opportunities.",
+        "founder_location": "Brussels, Belgium",
+        "pull_quote": "I want to create for me and for those who come after me, a life with better opportunities.",
+        "intro_body": "ARCHETYPE was not born in a laboratory. It was born in a kitchen in Brussels, from late nights, a crying baby, botanical research, and an unshakeable belief that women deserve more from their haircare.",
+        "ch1_title": "From the bakery to Brussels.",
+        "ch2_title": "A daughter, a question, and essential oils.",
+        "ch3_title": "A kitchen becomes a cosmetics lab.",
+        "ch4_title": "ARCHETYPE is born.",
+        "closing_quote": "All of my life experiences are part of my professional journey, because they have built who I am today.",
+        "founder_name": "Vanessa Freitas",
+        "closing_name": "Vanessa Freitas"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header",
+    "founder-page",
+    "footer"
+  ]
+}

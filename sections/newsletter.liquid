@@ -1,0 +1,40 @@
+<section class="newsletter-section" id="newsletter" {% if section.settings.bg_color != blank %}style="background:{{ section.settings.bg_color }}"{% endif %}>
+  <p class="eyebrow" style="color:rgba(239,237,230,.6);text-align:center">{{ section.settings.eyebrow }}</p>
+  <h2 class="section-title" style="text-align:center;color:#ffffff">{{ section.settings.title }}<br>{{ section.settings.title_2 }}</h2>
+  {%- if section.settings.body != blank -%}
+    <p class="body-text" style="text-align:center;color:rgba(239,237,230,.65);margin:0 auto 38px;max-width:480px">{{ section.settings.body }}</p>
+  {%- endif -%}
+  {% form 'customer' %}
+    <input type="hidden" name="contact[tags]" value="{{ section.settings.tag }}">
+    <div class="newsletter-form">
+      <input type="email" name="contact[email]" placeholder="{{ section.settings.placeholder }}" required>
+      <input type="submit" value="{{ section.settings.btn_label }}">
+    </div>
+    {%- if form.posted_successfully? -%}
+      <p style="text-align:center;color:var(--cream-2);margin-top:18px;font-size:.8rem;letter-spacing:.1em">{{ section.settings.success_msg }}</p>
+    {%- endif -%}
+  {% endform %}
+  {%- if section.settings.disclaimer != blank -%}
+    <p style="text-align:center;color:rgba(239,237,230,.3);margin-top:16px;font-size:.6rem;letter-spacing:.12em">{{ section.settings.disclaimer }}</p>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Alchemist Circle" },
+    { "type": "text", "id": "title", "label": "Title line 1", "default": "From customer" },
+    { "type": "text", "id": "title_2", "label": "Title line 2", "default": "to alchemist." },
+    { "type": "textarea", "id": "body", "label": "Body text", "default": "Rituals, discoveries, and the ancient wisdom of personalized haircare. Join our circle of alchemists and receive tools for transformation." },
+    { "type": "text", "id": "placeholder", "label": "Input placeholder", "default": "Your email address" },
+    { "type": "text", "id": "btn_label", "label": "Button label", "default": "Join" },
+    { "type": "text", "id": "success_msg", "label": "Success message", "default": "Welcome to the circle. Your transformation begins." },
+    { "type": "text", "id": "disclaimer", "label": "Fine print / GDPR note (optional)" },
+    { "type": "header", "content": "Settings" },
+    { "type": "text", "id": "tag", "label": "Customer tag", "default": "newsletter" },
+    { "type": "color", "id": "bg_color", "label": "Background color" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,51 @@
+{
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {}
+    },
+    "header": {
+      "type": "header",
+      "settings": {}
+    },
+    "story-page": {
+      "type": "story-page",
+      "settings": {
+        "eyebrow": "Our Story",
+        "hero_title": "We are the reflection",
+        "hero_title_em": "of our ancestors.",
+        "manifesto": "There is a special connection between you and your hair. A language that needs no words. A glance in the mirror. A gentle touch with your fingertips. A peaceful hairstyle after a warm shower.",
+        "manifesto_quote_1": "Between you and your hair.",
+        "manifesto_quote_2": "And vice versa.",
+        "manifesto_quote_3": "Each wash feels like a ritual following the rhythm of nature.",
+        "manifesto_attr": "Archetype Manifesto",
+        "founder_eyebrow": "The founder",
+        "founder_title": "Born from curiosity,",
+        "founder_title_em": "rooted in nature.",
+        "founder_p1": "ARCHETYPE was founded by a Brazilian woman living in Brussels. Surrounded by the richness of Brazilian botanical heritage and the rigour of European science, she spent three years researching how ancient natural ingredients could be perfected for modern hair.",
+        "founder_p2": "The brand was born from a simple, radical belief: haircare should not be one-size-fits-all. Every person deserves a formula crafted for their unique hair, their unique life, and their unique moment.",
+        "founder_p3": "ARCHETYPE gives you the ingredients. You become the alchemist.",
+        "founder_role": "Founder, ARCHETYPE",
+        "values_eyebrow": "What we stand for",
+        "values_title": "Nature. Scientists. You.",
+        "val1_name": "Ancient wisdom",
+        "val1_desc": "Our formulas are born in nature. We honour the knowledge of past civilisations who understood the power of botanicals long before the modern lab existed.",
+        "val2_name": "Modern science",
+        "val2_desc": "Every ingredient is tested and perfected in laboratories. We believe nature and science are not opposites. They are collaborators in the pursuit of healthy, beautiful hair.",
+        "val3_name": "You, the alchemist",
+        "val3_desc": "No two hairs are the same. We provide the ingredients. You mix, adapt and create the perfect formula for your hair, your season, your identity.",
+        "val4_name": "Sustainability",
+        "val4_desc": "From regenerative agriculture to recycled packaging, every decision we make considers the planet. We believe the earth that gives us our ingredients deserves to be protected.",
+        "manifesto_eyebrow": "Our manifesto",
+        "cta_title": "Ready to begin your ritual?",
+        "cta_sub": "We provide the ingredients. You be the alchemist.",
+        "cta_label": "Explore the collection"
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {}
+    }
+  },
+  "order": ["announcement-bar", "header", "story-page", "footer"]
+}

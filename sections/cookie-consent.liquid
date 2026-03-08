@@ -1,0 +1,69 @@
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Cookie consent" aria-live="polite">
+  <div class="cookie-inner">
+    <div class="cookie-text">
+      <p class="cookie-title">{{ section.settings.title | default: 'We use cookies' }}</p>
+      <p class="cookie-body">{{ section.settings.body | default: 'We use essential cookies to make our site work, and optional analytics cookies to understand how you use it. You can choose to accept all, or manage your preferences.' }} <a href="{{ section.settings.policy_url | default: '/pages/privacy-policy' }}" class="cookie-link">{{ section.settings.policy_label | default: 'Privacy Policy' }}</a></p>
+    </div>
+    <div class="cookie-actions">
+      <button id="cookie-accept-all" class="cookie-btn cookie-btn--accept">{{ section.settings.btn_accept | default: 'Accept all' }}</button>
+      <button id="cookie-accept-essential" class="cookie-btn cookie-btn--essential">{{ section.settings.btn_essential | default: 'Essential only' }}</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var COOKIE_KEY = 'archetype_cookie_consent';
+  var banner     = document.getElementById('cookie-banner');
+
+  function setCookie(val) {
+    var d = new Date();
+    d.setFullYear(d.getFullYear() + 1);
+    document.cookie = COOKIE_KEY + '=' + val + '; expires=' + d.toUTCString() + '; path=/; SameSite=Lax';
+  }
+
+  function getCookie() {
+    var match = document.cookie.match(new RegExp('(?:^|;)\\s*' + COOKIE_KEY + '=([^;]*)'));
+    return match ? match[1] : null;
+  }
+
+  // Already consented — hide immediately
+  if (getCookie()) {
+    banner.style.display = 'none';
+    return;
+  }
+
+  // Show after short delay
+  setTimeout(function () { banner.classList.add('cookie-banner--visible'); }, 800);
+
+  document.getElementById('cookie-accept-all').addEventListener('click', function () {
+    setCookie('all');
+    hideBanner();
+  });
+
+  document.getElementById('cookie-accept-essential').addEventListener('click', function () {
+    setCookie('essential');
+    hideBanner();
+  });
+
+  function hideBanner() {
+    banner.classList.remove('cookie-banner--visible');
+    banner.classList.add('cookie-banner--hiding');
+    setTimeout(function () { banner.style.display = 'none'; }, 400);
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Cookie Consent",
+  "settings": [
+    { "type": "text",     "id": "title",          "label": "Title",                "default": "We use cookies" },
+    { "type": "textarea", "id": "body",            "label": "Description",          "default": "We use essential cookies to make our site work, and optional analytics cookies to understand how you use it." },
+    { "type": "text",     "id": "btn_accept",      "label": "Accept all label",     "default": "Accept all" },
+    { "type": "text",     "id": "btn_essential",   "label": "Essential only label", "default": "Essential only" },
+    { "type": "text",     "id": "policy_label",    "label": "Policy link label",    "default": "Privacy Policy" },
+    { "type": "url",      "id": "policy_url",      "label": "Privacy policy URL" }
+  ]
+}
+{% endschema %}

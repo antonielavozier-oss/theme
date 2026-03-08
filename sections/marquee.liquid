@@ -1,0 +1,34 @@
+<div class="marquee-bar" aria-hidden="true" {% if section.settings.bg_color != blank %}style="background:{{ section.settings.bg_color }}"{% endif %}>
+  <div class="marquee-track" style="animation-duration:{{ section.settings.speed | default: 28 }}s">
+    {%- assign items = "" -%}
+    {%- for i in (1..8) -%}
+      {%- assign key = "item_" | append: i -%}
+      {%- if section.settings[key] != blank -%}
+        {%- assign items = items | append: section.settings[key] | append: "|||" -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- assign item_list = items | split: "|||" -%}
+    {%- for item in item_list -%}{%- unless item == blank -%}<span class="marquee-item">{{ item }}</span>{%- endunless -%}{%- endfor -%}
+    {%- for item in item_list -%}{%- unless item == blank -%}<span class="marquee-item">{{ item }}</span>{%- endunless -%}{%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Marquee Bar",
+  "settings": [
+    { "type": "header", "content": "Messages" },
+    { "type": "text", "id": "item_1", "label": "Item 1", "default": "Pause. Breathe. Transform." },
+    { "type": "text", "id": "item_2", "label": "Item 2", "default": "Ancient wisdom, modern formulas." },
+    { "type": "text", "id": "item_3", "label": "Item 3", "default": "Haircare as self-knowledge." },
+    { "type": "text", "id": "item_4", "label": "Item 4", "default": "Science and nature, one project." },
+    { "type": "text", "id": "item_5", "label": "Item 5", "default": "Not a routine. A ritual." },
+    { "type": "text", "id": "item_6", "label": "Item 6", "default": "We provide the ingredients. You be the alchemist." },
+    { "type": "text", "id": "item_7", "label": "Item 7 (optional)" },
+    { "type": "text", "id": "item_8", "label": "Item 8 (optional)" },
+    { "type": "header", "content": "Style" },
+    { "type": "range", "id": "speed", "label": "Scroll speed (seconds)", "min": 10, "max": 60, "step": 2, "default": 28 },
+    { "type": "color", "id": "bg_color", "label": "Background color", "default": "#2b2218" }
+  ]
+}
+{% endschema %}

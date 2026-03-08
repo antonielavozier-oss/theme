@@ -1,0 +1,132 @@
+{%- comment -%}
+  models.liquid — Editorial model grid
+  Uses the 6 real campaign photos from assets/
+  Layout: asymmetric editorial grid — hero + stack + wide + 2 squares
+{%- endcomment -%}
+
+{%- assign img_a1 = 'model-a-portrait.jpg'  | asset_url -%}
+{%- assign img_a2 = 'model-a-closeup.jpg'   | asset_url -%}
+{%- assign img_a3 = 'model-a-wide.jpg'      | asset_url -%}
+{%- assign img_b1 = 'model-b-full.jpg'      | asset_url -%}
+{%- assign img_b2 = 'model-b-overhead.jpg'  | asset_url -%}
+{%- assign img_b3 = 'model-b-hold.jpg'      | asset_url -%}
+
+<section class="models-section" id="models">
+
+  <div class="models-header reveal">
+    <div class="deco-line"></div>
+    <p class="eyebrow">{{ section.settings.eyebrow | default: 'Real hair. Real results.' }}</p>
+    <h2 class="section-title">{{ section.settings.title | default: 'Your hair,' }}<br><em>{{ section.settings.title_em | default: 'your archetype.' }}</em></h2>
+    <p class="models-intro">{{ section.settings.intro | default: 'Every formula was tested on real women with real hair stories. No filters — just science meeting nature.' }}</p>
+  </div>
+
+  <div class="models-grid">
+
+    <!-- Hero — portrait tall, model A full collection shot -->
+    <article class="model-card model-card--hero reveal">
+      <div class="model-img-wrap">
+        <img src="{{ img_a1 }}" alt="Archetype campaign — full collection" loading="lazy" class="model-img">
+        <div class="model-overlay">
+          <div class="model-tag">Foundation</div>
+          <div class="model-caption">
+            <p class="model-name">The Collection</p>
+            <p class="model-desc">Shampoo · Hair Cream · Boosters</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Stack right — 2 portrait cards -->
+    <div class="model-stack">
+      <article class="model-card model-card--portrait reveal">
+        <div class="model-img-wrap">
+          <img src="{{ img_b1 }}" alt="Archetype — Wavemaker Booster" loading="lazy" class="model-img">
+          <div class="model-overlay">
+            <div class="model-tag accent">Wavemaker</div>
+            <div class="model-caption">
+              <p class="model-name">Curl Defining Booster</p>
+              <p class="model-desc">Define &middot; Enhance &middot; Seal</p>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="model-card model-card--portrait reveal">
+        <div class="model-img-wrap">
+          <img src="{{ img_b3 }}" alt="Archetype — Wavemaker hold shot" loading="lazy" class="model-img">
+          <div class="model-overlay">
+            <div class="model-tag accent">Wavemaker</div>
+            <div class="model-caption">
+              <p class="model-name">20ml · 0.67 fl.oz.</p>
+              <p class="model-desc">Curl Activating Booster</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Wide landscape — model A with full range on table -->
+    <article class="model-card model-card--wide reveal">
+      <div class="model-img-wrap">
+        <img src="{{ img_a3 }}" alt="Archetype — full product range" loading="lazy" class="model-img" style="object-position: center 30%;">
+        <div class="model-overlay model-overlay--left">
+          <div class="model-tag">The Ritual</div>
+          <div class="model-caption">
+            <p class="model-name">Cleanse. Nourish. Seal.</p>
+            <p class="model-desc">Shampoo · Cream · Boosters</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Square 1 — model A portrait -->
+    <article class="model-card model-card--square reveal">
+      <div class="model-img-wrap">
+        <img src="{{ img_a1 }}" alt="Archetype — Foundation &amp; Trinity" loading="lazy" class="model-img" style="object-position: center 15%;">
+        <div class="model-overlay">
+          <div class="model-tag">Trinity</div>
+          <div class="model-caption">
+            <p class="model-name">Hair Cream</p>
+            <p class="model-desc">3-in-1 · Conditioner · Leave-in</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Square 2 — model B full body -->
+    <article class="model-card model-card--square reveal">
+      <div class="model-img-wrap">
+        <img src="{{ img_b1 }}" alt="Archetype — Wavemaker full" loading="lazy" class="model-img" style="object-position: center 20%;">
+        <div class="model-overlay">
+          <div class="model-tag">Wavemaker</div>
+          <div class="model-caption">
+            <p class="model-name">Curl Booster</p>
+            <p class="model-desc">Defines &amp; activates curls</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="models-footer">
+    <p class="models-hashtag">#myarchetype</p>
+    <a href="{{ section.settings.cta_url | default: '/collections/all' }}" class="btn-dark">
+      {{ section.settings.cta_text | default: 'Shop the Collection' }} &rarr;
+    </a>
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Models",
+  "settings": [
+    { "type": "text",     "id": "eyebrow",   "label": "Eyebrow",        "default": "Real hair. Real results." },
+    { "type": "text",     "id": "title",     "label": "Title",           "default": "Your hair," },
+    { "type": "text",     "id": "title_em",  "label": "Title italic",    "default": "your archetype." },
+    { "type": "textarea", "id": "intro",     "label": "Intro text",      "default": "Every formula was tested on real women with real hair stories. No filters — just science meeting nature." },
+    { "type": "url",      "id": "cta_url",   "label": "CTA link" },
+    { "type": "text",     "id": "cta_text",  "label": "CTA label",       "default": "Shop the Collection" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,229 @@
+<section class="contact-section">
+
+  <!-- Editorial hero header -->
+  <div class="contact-hero">
+    <div class="contact-hero-inner">
+      <p class="eyebrow contact-eyebrow">{{ section.settings.eyebrow | default: 'Get in touch' }}</p>
+      <h1 class="contact-title">
+        {{ section.settings.title | default: 'Every question' }}<br>
+        <em>{{ section.settings.title_em | default: 'deserves an answer.' }}</em>
+      </h1>
+      <p class="contact-subtitle">{{ section.settings.subtitle | default: 'We are here. Whether you need help with your ritual, your order, or just want to say hello.' }}</p>
+    </div>
+    <div class="contact-hero-deco" aria-hidden="true">
+      <div class="contact-deco-circle"></div>
+      <div class="contact-deco-line"></div>
+    </div>
+  </div>
+
+  <div class="contact-layout">
+
+    <!-- Left: info cards -->
+    <div class="contact-info">
+
+      <div class="contact-info-card">
+        <div class="contact-info-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div>
+          <p class="contact-info-label">Email</p>
+          <a href="mailto:{{ section.settings.email | default: 'hello@archetype.com' }}" class="contact-info-value">{{ section.settings.email | default: 'hello@archetype.com' }}</a>
+          <p class="contact-info-note">{{ section.settings.email_note | default: 'We reply within 24 hours' }}</p>
+        </div>
+      </div>
+
+      <div class="contact-info-card">
+        <div class="contact-info-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <p class="contact-info-label">Based in</p>
+          <p class="contact-info-value">{{ section.settings.location | default: 'Brussels, Belgium' }}</p>
+          <p class="contact-info-note">{{ section.settings.location_note | default: 'Shipping across Europe' }}</p>
+        </div>
+      </div>
+
+      <div class="contact-info-card">
+        <div class="contact-info-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <p class="contact-info-label">Response time</p>
+          <p class="contact-info-value">{{ section.settings.hours | default: 'Mon – Fri, 9h – 18h' }}</p>
+          <p class="contact-info-note">{{ section.settings.hours_note | default: 'Central European Time' }}</p>
+        </div>
+      </div>
+
+      <!-- Social links -->
+      <div class="contact-social">
+        <p class="contact-social-label">Follow the ritual</p>
+        <div class="contact-social-links">
+          {%- if section.settings.instagram != blank -%}
+          <a href="{{ section.settings.instagram }}" class="contact-social-link" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            Instagram
+          </a>
+          {%- endif -%}
+          {%- if section.settings.tiktok != blank -%}
+          <a href="{{ section.settings.tiktok }}" class="contact-social-link" target="_blank" rel="noopener" aria-label="TikTok">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.17 8.17 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+            TikTok
+          </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right: contact form -->
+    <div class="contact-form-wrap">
+      <div class="contact-form-header">
+        <h2 class="contact-form-title">{{ section.settings.form_title | default: 'Send a message' }}</h2>
+        <p class="contact-form-subtitle">{{ section.settings.form_subtitle | default: 'Tell us about yourself, your hair, and how we can help.' }}</p>
+      </div>
+
+      {%- form 'contact', id: 'contact-form' -%}
+        {%- if form.posted_successfully? -%}
+          <div class="contact-success" role="alert">
+            <div class="contact-success-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div>
+              <p class="contact-success-title">{{ section.settings.success_title | default: 'Message received.' }}</p>
+              <p class="contact-success-body">{{ section.settings.success_body | default: 'Thank you for reaching out. We will be in touch within 24 hours.' }}</p>
+            </div>
+          </div>
+        {%- else -%}
+
+          <!-- Subject selector (honeypot-free, semantic) -->
+          <div class="contact-field-row">
+            <div class="contact-field">
+              <label class="contact-label" for="contact-name">Full name <span class="contact-required">*</span></label>
+              <input type="text" id="contact-name" name="contact[name]" class="contact-input" placeholder="Your name" required autocomplete="name">
+            </div>
+            <div class="contact-field">
+              <label class="contact-label" for="contact-email">Email address <span class="contact-required">*</span></label>
+              <input type="email" id="contact-email" name="contact[email]" class="contact-input" placeholder="hello@you.com" required autocomplete="email">
+            </div>
+          </div>
+
+          <div class="contact-field">
+            <label class="contact-label">Topic</label>
+            <div class="contact-topics">
+              <label class="contact-topic">
+                <input type="radio" name="contact[topic]" value="My Order"> My Order
+              </label>
+              <label class="contact-topic">
+                <input type="radio" name="contact[topic]" value="My Ritual" checked> My Ritual
+              </label>
+              <label class="contact-topic">
+                <input type="radio" name="contact[topic]" value="Products"> Products
+              </label>
+              <label class="contact-topic">
+                <input type="radio" name="contact[topic]" value="Partnership"> Partnership
+              </label>
+              <label class="contact-topic">
+                <input type="radio" name="contact[topic]" value="Press"> Press
+              </label>
+              <label class="contact-topic">
+                <input type="radio" name="contact[topic]" value="Other"> Other
+              </label>
+            </div>
+          </div>
+
+          <div class="contact-field">
+            <label class="contact-label" for="contact-message">Message <span class="contact-required">*</span></label>
+            <textarea id="contact-message" name="contact[body]" class="contact-textarea" rows="5" placeholder="Tell us what is on your mind..." required></textarea>
+          </div>
+
+          <button type="submit" class="contact-submit">
+            <span class="contact-submit-text">Send message</span>
+            <svg class="contact-submit-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+
+          <p class="contact-privacy">Your information is used solely to respond to your message. We never share your data.</p>
+
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+
+  </div>
+
+  <!-- FAQ strip -->
+  <div class="contact-faq">
+    <p class="contact-faq-label">{{ section.settings.faq_label | default: 'Frequently asked' }}</p>
+    <div class="contact-faq-grid">
+
+      {%- for i in (1..4) -%}
+        {%- assign q_key = 'faq_' | append: i | append: '_q' -%}
+        {%- assign a_key = 'faq_' | append: i | append: '_a' -%}
+        {%- if section.settings[q_key] != blank -%}
+        <div class="contact-faq-item">
+          <button class="contact-faq-q" aria-expanded="false">
+            <span>{{ section.settings[q_key] }}</span>
+            <svg class="faq-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="contact-faq-a" hidden>{{ section.settings[a_key] }}</div>
+        </div>
+        {%- endif -%}
+      {%- endfor -%}
+
+    </div>
+  </div>
+
+</section>
+
+<script>
+(function () {
+  // FAQ accordion
+  document.querySelectorAll('.contact-faq-q').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var expanded = this.getAttribute('aria-expanded') === 'true';
+      var answer   = this.nextElementSibling;
+      var icon     = this.querySelector('.faq-icon');
+
+      this.setAttribute('aria-expanded', !expanded);
+      answer.hidden = expanded;
+      icon.style.transform = expanded ? '' : 'rotate(45deg)';
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Contact Page",
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Get in touch" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Every question" },
+    { "type": "text", "id": "title_em", "label": "Title italic", "default": "deserves an answer." },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "We are here. Whether you need help with your ritual, your order, or just want to say hello." },
+    { "type": "header", "content": "Contact Info" },
+    { "type": "text", "id": "email", "label": "Email address", "default": "hello@archetype.com" },
+    { "type": "text", "id": "email_note", "label": "Email note", "default": "We reply within 24 hours" },
+    { "type": "text", "id": "location", "label": "Location", "default": "Brussels, Belgium" },
+    { "type": "text", "id": "location_note", "label": "Location note", "default": "Shipping across Europe" },
+    { "type": "text", "id": "hours", "label": "Hours", "default": "Mon to Fri, 9h to 18h" },
+    { "type": "text", "id": "hours_note", "label": "Hours note", "default": "Central European Time" },
+    { "type": "header", "content": "Social" },
+    { "type": "url", "id": "instagram", "label": "Instagram URL" },
+    { "type": "url", "id": "tiktok", "label": "TikTok URL" },
+    { "type": "header", "content": "Form" },
+    { "type": "text", "id": "form_title", "label": "Form title", "default": "Send a message" },
+    { "type": "textarea", "id": "form_subtitle", "label": "Form subtitle", "default": "Tell us about yourself, your hair, and how we can help." },
+    { "type": "text", "id": "success_title", "label": "Success title", "default": "Message received." },
+    { "type": "textarea", "id": "success_body", "label": "Success body", "default": "Thank you for reaching out. We will be in touch within 24 hours." },
+    { "type": "header", "content": "FAQ" },
+    { "type": "text", "id": "faq_label", "label": "FAQ section label", "default": "Frequently asked" },
+    { "type": "text", "id": "faq_1_q", "label": "Question 1", "default": "How do I choose the right boosters for my hair?" },
+    { "type": "textarea", "id": "faq_1_a", "label": "Answer 1", "default": "Start by identifying your main hair concern: hydration, repair, scalp balance, or frizz control. Each booster targets a specific need. You can mix up to 2 boosters per wash, and switch them as your hair evolves." },
+    { "type": "text", "id": "faq_2_q", "label": "Question 2", "default": "How long does shipping take?" },
+    { "type": "textarea", "id": "faq_2_a", "label": "Answer 2", "default": "Orders ship within 1-2 business days. Belgium deliveries arrive in 1-3 days. European orders take 3-7 business days depending on your country." },
+    { "type": "text", "id": "faq_3_q", "label": "Question 3", "default": "Can I return a product?" },
+    { "type": "textarea", "id": "faq_3_a", "label": "Answer 3", "default": "We accept returns of unopened products within 14 days of delivery. If you received a damaged item or the wrong order, contact us and we will make it right immediately." },
+    { "type": "text", "id": "faq_4_q", "label": "Question 4", "default": "Is ARCHETYPE suitable for all hair types?" },
+    { "type": "textarea", "id": "faq_4_a", "label": "Answer 4", "default": "Yes. ARCHETYPE is designed for every hair type. The base cleanses and nourishes universally, and the boosters allow you to address your specific needs regardless of texture, thickness, or porosity." }
+  ]
+}
+{% endschema %}

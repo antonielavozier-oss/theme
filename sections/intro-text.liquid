@@ -1,0 +1,15 @@
+<section class="intro-text-section">
+  <div class="intro-text-inner">
+    <p class="intro-text-eyebrow">{{ section.settings.eyebrow }}</p>
+    <p class="intro-text-body">{{ section.settings.body }}</p>
+  </div>
+
+{% schema %}
+{
+  "name": "Intro Text",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "An invitation to pause." },
+    { "type": "textarea", "id": "body", "label": "Body text", "default": "In a world of fast-paced routines and constant demands, ARCHETYPE brings back the ancient wisdom of nature. We believe haircare is more than a routine. It is a ritual of self-knowledge, transformation, and acceptance. One hair. Endless possibilities." }
+  ]
+}
+{% endschema %}

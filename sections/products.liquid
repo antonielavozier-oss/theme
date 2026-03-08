@@ -1,0 +1,126 @@
+{%- comment -%}
+  products.liquid — Product carousel slider for homepage
+{%- endcomment -%}
+
+{%- liquid
+  assign featured_collection = section.settings.collection
+  if featured_collection == blank
+    assign featured_collection = collections['all']
+  endif
+  assign product_limit = section.settings.product_limit | default: 8
+-%}
+
+<section class="products-section" id="products">
+  <div class="section-header">
+    <div>
+      <p class="eyebrow">{{ section.settings.eyebrow | default: 'We provide the ingredients.' }}</p>
+      <h2 class="section-title">{{ section.settings.title | default: 'You be' }}<br><em>{{ section.settings.title_em | default: 'the alchemist.' }}</em></h2>
+    </div>
+    <a href="{{ featured_collection.url }}" class="view-all">{{ section.settings.cta_text | default: 'View All' }} &rarr;</a>
+  </div>
+
+  {%- if featured_collection.products_count > 0 -%}
+  <div class="prod-carousel-wrap">
+    <button class="prod-carousel-arrow prod-carousel-arrow--prev" aria-label="Previous">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="prod-carousel" id="prod-carousel">
+      {%- for product in featured_collection.products limit: product_limit -%}
+        {%- liquid
+          assign product_tag = ''
+          assign tag_accent  = false
+          for tag in product.tags
+            assign tag_lower = tag | downcase
+            if tag_lower == 'base' or tag_lower == 'booster' or tag_lower == 'kit'
+              assign product_tag = tag
+              if tag_lower == 'booster' or tag_lower == 'kit'
+                assign tag_accent = true
+              endif
+              break
+            endif
+          endfor
+        -%}
+        <a href="{{ product.url }}" class="product-card prod-slide">
+          <div class="product-img">
+            {%- if product.featured_image -%}
+              <img
+                src="{{ product.featured_image | image_url: width: 600 }}"
+                alt="{{ product.featured_image.alt | escape | default: product.title }}"
+                width="600"
+                loading="lazy">
+            {%- else -%}
+              <div class="product-img-placeholder">
+                <svg viewBox="0 0 60 60" fill="none"><rect width="60" height="60" fill="var(--cream-2)"/><path d="M20 40L28 28l6 8 5-6 9 10H20z" fill="var(--muted)" opacity=".4"/><circle cx="38" cy="22" r="4" fill="var(--muted)" opacity=".4"/></svg>
+              </div>
+            {%- endif -%}
+            {%- unless product_tag == blank -%}
+              <span class="product-tag{% if tag_accent %} accent{% endif %}">{{ product_tag }}</span>
+            {%- endunless -%}
+            {%- if product.compare_at_price > product.price -%}
+              <span class="product-badge-sale">Sale</span>
+            {%- endif -%}
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">{{ product.title }}</h3>
+
+            <div class="product-stars">
+              {%- if product.metafields.reviews.rating.value != blank -%}
+                {%- assign rating_val   = product.metafields.reviews.rating.value | times: 1.0 -%}
+                {%- assign rating_count = product.metafields.reviews.rating_count.value | default: 0 -%}
+                {%- assign full_stars   = rating_val | floor -%}
+                {%- assign half_star    = rating_val | minus: full_stars -%}
+                {%- assign empty_stars  = 5 | minus: full_stars -%}
+                {%- if half_star >= 0.4 -%}{%- assign empty_stars = empty_stars | minus: 1 -%}{%- endif -%}
+                {%- for i in (1..full_stars) -%}<span class="star star-full">&#9733;</span>{%- endfor -%}
+                {%- if half_star >= 0.4 -%}<span class="star star-half">&#9733;</span>{%- endif -%}
+                {%- for i in (1..empty_stars) -%}<span class="star star-empty">&#9734;</span>{%- endfor -%}
+                {%- if rating_count > 0 -%}<span class="product-review-count">({{ rating_count }})</span>{%- endif -%}
+              {%- else -%}
+                <span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span>
+                <span class="star star-full">&#9733;</span><span class="star star-full">&#9733;</span>
+                <span class="star star-full">&#9733;</span>
+              {%- endif -%}
+            </div>
+
+            {%- if product.metafields.archetype.subtitle -%}
+              <p class="product-type">{{ product.metafields.archetype.subtitle }}</p>
+            {%- elsif product.product_type != blank -%}
+              <p class="product-type">{{ product.product_type }}</p>
+            {%- endif -%}
+
+            <div class="product-footer">
+              <span class="product-price">
+                {%- if product.price_varies -%}
+                  From {{ product.price_min | money }}
+                {%- else -%}
+                  {{ product.price | money }}
+                {%- endif -%}
+              </span>
+              <span class="btn-add">View &rarr;</span>
+            </div>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+    <button class="prod-carousel-arrow prod-carousel-arrow--next" aria-label="Next">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="prod-carousel-dots" id="prod-carousel-dots"></div>
+  </div>
+  {%- endif -%}
+
+</section>
+
+{% schema %}
+{
+  "name": "Products Carousel",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "product_limit", "label": "Max products", "min": 4, "max": 12, "step": 1, "default": 8 },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "We provide the ingredients." },
+    { "type": "text", "id": "title", "label": "Title", "default": "You be" },
+    { "type": "text", "id": "title_em", "label": "Title italic", "default": "the alchemist." },
+    { "type": "text", "id": "cta_text", "label": "View all label", "default": "View All" }
+  ]
+}
+{% endschema %}

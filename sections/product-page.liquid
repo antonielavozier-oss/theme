@@ -1,0 +1,549 @@
+{%- comment -%}
+  product-page.liquid — Fully dynamic PDP
+  Uses native Shopify product object + metafields for extended data.
+  Metafield namespace: archetype
+  Metafields used (all optional with graceful fallbacks):
+    archetype.subtitle         → e.g. "Neutral Shampoo · 475ml"
+    archetype.tagline          → one-liner hero line
+    archetype.how_to_use       → usage instructions
+    archetype.key_ingredients  → comma-separated pills
+    archetype.ki_1_name / ki_1_desc → key ingredient 1
+    archetype.ki_2_name / ki_2_desc → key ingredient 2
+    archetype.ki_3_name / ki_3_desc → key ingredient 3
+    archetype.inci             → full ingredient list
+    archetype.pair_text        → pairing intro text
+    archetype.pair_1           → handle of pair product 1
+    archetype.pair_2           → handle of pair product 2
+    archetype.certs            → comma-separated certifications
+{%- endcomment -%}
+
+{%- liquid
+  assign p        = product
+  assign variant  = p.selected_or_first_available_variant
+  assign mf       = p.metafields.archetype
+
+  assign p_subtitle   = mf.subtitle      | default: p.product_type
+  assign p_tagline    = mf.tagline       | default: p.description | strip_html | truncate: 80
+  assign p_how        = mf.how_to_use    | default: ''
+  assign p_inci       = mf.inci          | default: ''
+  assign p_pair_text  = mf.pair_text     | default: ''
+  assign p_certs_raw  = mf.certs         | default: 'Sulfate-Free,Paraben-Free,Natural Ingredients,Made in Belgium'
+
+  assign ki1n = mf.ki_1_name | default: ''
+  assign ki1d = mf.ki_1_desc | default: ''
+  assign ki2n = mf.ki_2_name | default: ''
+  assign ki2d = mf.ki_2_desc | default: ''
+  assign ki3n = mf.ki_3_name | default: ''
+  assign ki3d = mf.ki_3_desc | default: ''
+
+  assign pair1_handle = mf.pair_1 | default: ''
+  assign pair2_handle = mf.pair_2 | default: ''
+  assign pair1 = all_products[pair1_handle]
+  assign pair2 = all_products[pair2_handle]
+
+  assign product_tag_label = ''
+  assign tag_accent = false
+  for tag in p.tags
+    assign tl = tag | downcase
+    if tl == 'base' or tl == 'booster' or tl == 'kit'
+      assign product_tag_label = tag
+      if tl == 'booster' or tl == 'kit'
+        assign tag_accent = true
+      endif
+      break
+    endif
+  endfor
+-%}
+
+<section class="pdp-section">
+  <div class="pdp-grid">
+
+    <!-- Image gallery -->
+    <div class="pdp-gallery">
+      {%- if p.images.size > 0 -%}
+        <div class="pdp-main-img" id="pdp-main-img">
+          <img
+            src="{{ p.images[0] | image_url: width: 900 }}"
+            alt="{{ p.images[0].alt | escape | default: p.title }}"
+            id="pdp-hero-img"
+            width="900"
+            loading="eager">
+          {%- unless product_tag_label == blank -%}
+            <span class="pdp-tag{% if tag_accent %} accent{% endif %}">{{ product_tag_label }}</span>
+          {%- endunless -%}
+        </div>
+        {%- if p.images.size > 1 -%}
+        <div class="pdp-thumbs" id="pdp-thumbs">
+          {%- for img in p.images -%}
+            <button class="pdp-thumb{% if forloop.first %} active{% endif %}"
+              data-src="{{ img | image_url: width: 900 }}"
+              data-alt="{{ img.alt | escape | default: p.title }}"
+              aria-label="Image {{ forloop.index }}">
+              <img src="{{ img | image_url: width: 160 }}" alt="" loading="lazy" width="160">
+            </button>
+          {%- endfor -%}
+        </div>
+        {%- endif -%}
+      {%- else -%}
+        <div class="pdp-main-img pdp-no-img">
+          <svg viewBox="0 0 200 200" fill="none"><rect width="200" height="200" fill="var(--warm)"/><path d="M60 140L85 100l25 30 20-24 30 34H60z" fill="var(--cream-2)"/><circle cx="140" cy="70" r="15" fill="var(--cream-2)"/></svg>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Product info -->
+    <div class="pdp-info">
+
+      <!-- Breadcrumb -->
+      <nav class="pdp-breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a> <span>/</span>
+        <a href="/collections/all">Shop</a> <span>/</span>
+        <span>{{ p.title }}</span>
+      </nav>
+
+      <div class="pdp-eyebrow">{{ p_subtitle }}</div>
+      <h1 class="pdp-title">{{ p.title }}</h1>
+
+      {%- comment -%} Star rating row {%- endcomment -%}
+      <div class="pdp-stars-row">
+        {%- if p.metafields.reviews.rating.value != blank -%}
+          {%- assign rating_val   = p.metafields.reviews.rating.value | times: 1.0 -%}
+          {%- assign rating_count = p.metafields.reviews.rating_count.value | default: 0 -%}
+          {%- assign full_stars   = rating_val | floor -%}
+          {%- assign half_star    = rating_val | minus: full_stars -%}
+          {%- assign empty_stars  = 5 | minus: full_stars -%}
+          {%- if half_star >= 0.4 -%}{%- assign empty_stars = empty_stars | minus: 1 -%}{%- endif -%}
+          <div class="pdp-stars">
+            {%- for i in (1..full_stars) -%}<span class="star star-full">&#9733;</span>{%- endfor -%}
+            {%- if half_star >= 0.4 -%}<span class="star star-half">&#9733;</span>{%- endif -%}
+            {%- for i in (1..empty_stars) -%}<span class="star star-empty">&#9734;</span>{%- endfor -%}
+          </div>
+          {%- if rating_count > 0 -%}
+            <a href="#pdp-reviews" class="pdp-review-count">{{ rating_count }} review{% if rating_count != 1 %}s{% endif %}</a>
+          {%- endif -%}
+        {%- else -%}
+          <div class="pdp-stars">
+            <span class="star star-full">&#9733;</span>
+            <span class="star star-full">&#9733;</span>
+            <span class="star star-full">&#9733;</span>
+            <span class="star star-full">&#9733;</span>
+            <span class="star star-full">&#9733;</span>
+          </div>
+          <span class="pdp-review-count">Be the first to review</span>
+        {%- endif -%}
+      </div>
+
+      <p class="pdp-tagline">{{ p_tagline }}</p>
+
+      <!-- Price -->
+      <div class="pdp-price-row">
+        <span class="pdp-price">
+          {%- if p.price_varies -%}
+            From {{ p.price_min | money }}
+          {%- else -%}
+            {{ variant.price | money }}
+          {%- endif -%}
+        </span>
+        {%- if variant.compare_at_price > variant.price -%}
+          <span class="pdp-compare">{{ variant.compare_at_price | money }}</span>
+          <span class="pdp-saving">Save {{ variant.compare_at_price | minus: variant.price | money }}</span>
+        {%- endif -%}
+      </div>
+
+      <!-- Variants (if more than one) -->
+      {%- unless p.has_only_default_variant -%}
+      <div class="pdp-variants">
+        {%- for v in p.variants -%}
+          <a href="{{ p.url }}?variant={{ v.id }}"
+            class="pdp-variant-pill{% if v.id == variant.id %} active{% endif %}"
+            {% unless v.available %}data-sold-out{% endunless %}>
+            {{ v.title }}
+            {%- unless v.available %} <span class="sold-out-label">Sold out</span>{%- endunless -%}
+          </a>
+        {%- endfor -%}
+      </div>
+      {%- endunless -%}
+
+      <!-- Key ingredient pills -->
+      {%- unless ki1n == blank -%}
+      <div class="pdp-key-ings">
+        <span class="pdp-pill">{{ ki1n }}</span>
+        {%- unless ki2n == blank -%}<span class="pdp-pill">{{ ki2n }}</span>{%- endunless -%}
+        {%- unless ki3n == blank -%}<span class="pdp-pill">{{ ki3n }}</span>{%- endunless -%}
+      </div>
+      {%- endunless -%}
+
+      <!-- Add to cart -->
+      {%- form 'product', p, id: 'pdp-form' -%}
+        <input type="hidden" name="id" value="{{ variant.id }}">
+        <div class="pdp-atc-row">
+          <div class="pdp-qty">
+            <button type="button" class="qty-btn" id="qty-m" aria-label="Decrease">&#8722;</button>
+            <input type="number" name="quantity" value="1" min="1" id="qty-n" class="qty-input" aria-label="Quantity">
+            <button type="button" class="qty-btn" id="qty-p" aria-label="Increase">&#43;</button>
+          </div>
+          <button type="submit" name="add" class="pdp-atc-btn"
+            {% unless variant.available %}disabled{% endunless %}>
+            {%- if variant.available -%}
+              Add to Cart &mdash; {{ variant.price | money }}
+            {%- else -%}
+              Sold Out
+            {%- endif -%}
+          </button>
+        </div>
+      {%- endform -%}
+
+      <!-- Shipping info -->
+      <ul class="pdp-shipping">
+        <li><span class="ship-dot">&#9670;</span> Free shipping in Belgium on all orders</li>
+        <li><span class="ship-dot">&#9670;</span> Free European shipping on orders above &euro;75</li>
+        <li><span class="ship-dot">&#9670;</span> Delivered within 1&ndash;3 working days</li>
+        <li><span class="ship-dot">&#9670;</span> Returns accepted within 14 days (unopened)</li>
+      </ul>
+
+      <!-- Accordions -->
+      <div class="pdp-accordions">
+
+        {%- unless ki1n == blank -%}
+        <div class="acc">
+          <button class="acc-hd" aria-expanded="true">
+            <span>Key Ingredients &amp; Benefits</span>
+            <span class="acc-icon">&#8722;</span>
+          </button>
+          <div class="acc-bd" style="display:block">
+            <div class="acc-ings">
+              <div class="acc-ing"><strong>{{ ki1n }}</strong><p>{{ ki1d }}</p></div>
+              {%- unless ki2n == blank -%}<div class="acc-ing"><strong>{{ ki2n }}</strong><p>{{ ki2d }}</p></div>{%- endunless -%}
+              {%- unless ki3n == blank -%}<div class="acc-ing"><strong>{{ ki3n }}</strong><p>{{ ki3d }}</p></div>{%- endunless -%}
+            </div>
+          </div>
+        </div>
+        {%- endunless -%}
+
+        {%- unless p.description == blank -%}
+        <div class="acc">
+          <button class="acc-hd" aria-expanded="{% if ki1n == blank %}true{% else %}false{% endif %}">
+            <span>Description</span>
+            <span class="acc-icon">{% if ki1n == blank %}&#8722;{% else %}&#43;{% endif %}</span>
+          </button>
+          <div class="acc-bd" style="display:{% if ki1n == blank %}block{% else %}none{% endif %}">
+            <p class="acc-text">{{ p.description }}</p>
+          </div>
+        </div>
+        {%- endunless -%}
+
+        {%- unless p_how == blank -%}
+        <div class="acc">
+          <button class="acc-hd" aria-expanded="false">
+            <span>How to Use</span>
+            <span class="acc-icon">&#43;</span>
+          </button>
+          <div class="acc-bd" style="display:none">
+            <p class="acc-text">{{ p_how }}</p>
+          </div>
+        </div>
+        {%- endunless -%}
+
+        {%- unless p_inci == blank -%}
+        <div class="acc">
+          <button class="acc-hd" aria-expanded="false">
+            <span>Full Ingredient List (INCI)</span>
+            <span class="acc-icon">&#43;</span>
+          </button>
+          <div class="acc-bd" style="display:none">
+            <p class="acc-text acc-inci">{{ p_inci }}</p>
+          </div>
+        </div>
+        {%- endunless -%}
+
+        <div class="acc">
+          <button class="acc-hd" aria-expanded="false">
+            <span>Shipping &amp; Returns</span>
+            <span class="acc-icon">&#43;</span>
+          </button>
+          <div class="acc-bd" style="display:none">
+            <p class="acc-text">
+              <strong>Belgium:</strong> Free shipping on all orders. Delivered within 1&ndash;3 working days.<br><br>
+              <strong>Rest of Europe:</strong> Free shipping on orders above &euro;75.<br><br>
+              <strong>Returns:</strong> Unopened products within 14 days. Email hello@archetypehair.com.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Certifications -->
+      <div class="pdp-certs">
+        {%- assign certs = p_certs_raw | split: ',' -%}
+        {%- for cert in certs -%}
+          <span>&#9670; {{ cert | strip }}</span>
+        {%- endfor -%}
+      </div>
+
+    </div><!-- /pdp-info -->
+  </div><!-- /pdp-grid -->
+</section>
+
+<!-- Complete the ritual -->
+{%- if pair1 != blank or pair2 != blank -%}
+<section class="pdp-pair-section">
+  <p class="eyebrow" style="text-align:center">Complete the ritual</p>
+  <h2 class="section-title" style="text-align:center;margin-bottom:10px">Pair {{ p.title }} with</h2>
+  {%- unless p_pair_text == blank -%}<p class="pair-intro">{{ p_pair_text }}</p>{%- endunless -%}
+  <div class="pair-cards">
+    {%- if pair1 != blank -%}
+    <a href="{{ pair1.url }}" class="pair-card">
+      {%- if pair1.featured_image -%}
+        <img src="{{ pair1.featured_image | image_url: width: 500 }}" alt="{{ pair1.title }}" loading="lazy" width="500">
+      {%- endif -%}
+      <div class="pair-card-info">
+        <span class="pair-card-name">{{ pair1.title }}</span>
+        <span class="pair-card-sub">{{ pair1.metafields.archetype.subtitle | default: pair1.product_type }}</span>
+        <span class="pair-card-price">{{ pair1.price | money }}</span>
+      </div>
+      <span class="pair-card-cta">Discover &rarr;</span>
+    </a>
+    {%- endif -%}
+    {%- if pair2 != blank -%}
+    <a href="{{ pair2.url }}" class="pair-card">
+      {%- if pair2.featured_image -%}
+        <img src="{{ pair2.featured_image | image_url: width: 500 }}" alt="{{ pair2.title }}" loading="lazy" width="500">
+      {%- endif -%}
+      <div class="pair-card-info">
+        <span class="pair-card-name">{{ pair2.title }}</span>
+        <span class="pair-card-sub">{{ pair2.metafields.archetype.subtitle | default: pair2.product_type }}</span>
+        <span class="pair-card-price">{{ pair2.price | money }}</span>
+      </div>
+      <span class="pair-card-cta">Discover &rarr;</span>
+    </a>
+    {%- endif -%}
+  </div>
+</section>
+{%- endif -%}
+
+<!-- ══════════════════════════════════════════════
+     REVIEWS SECTION
+══════════════════════════════════════════════ -->
+<section class="pdp-reviews" id="pdp-reviews">
+  <div class="pdp-reviews-inner">
+
+    <!-- ── Top bar: "Customer Reviews" + global score + Write a review ── -->
+    <div class="pdp-rv-topbar">
+      <h2 class="pdp-rv-heading">Customer Reviews</h2>
+      <div class="pdp-rv-topbar-right">
+        {%- if p.metafields.reviews.rating.value != blank -%}
+          {%- assign rv  = p.metafields.reviews.rating.value | times: 1.0 -%}
+          {%- assign rc  = p.metafields.reviews.rating_count.value | default: 0 -%}
+          <div class="pdp-rv-global">
+            <span class="pdp-rv-global-score">{{ rv | round: 1 }}</span>
+            <div class="pdp-rv-global-stars">
+              {%- for i in (1..5) -%}
+                {%- if i <= rv -%}<span class="star star-full">&#9733;</span>
+                {%- else -%}<span class="star star-empty">&#9734;</span>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+            <span class="pdp-rv-global-count">({{ rc }} review{% if rc != 1 %}s{% endif %})</span>
+          </div>
+        {%- endif -%}
+        <button class="pdp-rv-write-btn" id="pdp-review-toggle" aria-expanded="false">Write a review</button>
+      </div>
+    </div>
+
+    <!-- ── Write review form (slides open) ── -->
+    <div class="pdp-review-form-wrap" id="pdp-review-form-wrap" aria-hidden="true">
+      <div class="pdp-review-form-inner">
+        {%- form 'contact', class: 'pdp-review-form' -%}
+          {%- if form.posted_successfully? -%}
+            <div class="pdp-review-success">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <p>Thank you! Your review will appear after moderation.</p>
+            </div>
+          {%- else -%}
+            <input type="hidden" name="contact[tags]" value="product-review">
+            <input type="hidden" name="contact[product]" value="{{ product.title }}">
+            <div class="pdp-rv-form-grid">
+              <div class="pdp-rv-form-field pdp-rv-form-field--full">
+                <label class="pdp-rv-label">Your rating <span class="rv-req">*</span></label>
+                <div class="pdp-star-picker" id="pdp-star-picker" role="radiogroup">
+                  {%- for i in (1..5) -%}
+                    <button type="button" class="pdp-star-pick" data-val="{{ i }}" aria-label="{{ i }} stars" aria-pressed="false">&#9733;</button>
+                  {%- endfor -%}
+                </div>
+                <input type="hidden" name="contact[rating]" id="pdp-rating-val">
+              </div>
+              <div class="pdp-rv-form-field">
+                <label class="pdp-rv-label" for="rv-name">Name <span class="rv-req">*</span></label>
+                <input class="pdp-rv-input" type="text" id="rv-name" name="contact[name]" placeholder="Your name" required autocomplete="name">
+              </div>
+              <div class="pdp-rv-form-field">
+                <label class="pdp-rv-label" for="rv-location">Location</label>
+                <input class="pdp-rv-input" type="text" id="rv-location" name="contact[location]" placeholder="City, Country">
+              </div>
+              <div class="pdp-rv-form-field pdp-rv-form-field--full">
+                <label class="pdp-rv-label" for="rv-title">Review title</label>
+                <input class="pdp-rv-input" type="text" id="rv-title" name="contact[subject]" placeholder="Sum it up in one line">
+              </div>
+              <div class="pdp-rv-form-field pdp-rv-form-field--full">
+                <label class="pdp-rv-label" for="rv-body">Your review <span class="rv-req">*</span></label>
+                <textarea class="pdp-rv-textarea" id="rv-body" name="contact[body]" rows="5" placeholder="Tell us about your ritual experience with this product..." required></textarea>
+              </div>
+              <div class="pdp-rv-form-field pdp-rv-form-field--full">
+                <label class="pdp-rv-check-label">
+                  <input type="checkbox" name="contact[recommend]" value="yes" class="pdp-rv-check">
+                  <span>I would recommend this product</span>
+                </label>
+              </div>
+            </div>
+            <div class="pdp-rv-form-footer">
+              <p class="pdp-rv-disclaimer">Reviews are moderated before publishing. Your email will not be shown.</p>
+              <button type="submit" class="pdp-rv-submit">Submit review</button>
+            </div>
+            <input type="hidden" name="contact[email]" value="noreply@archetypehair.com">
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+    </div>
+
+    <!-- ── Reviews list — Judge.me ── -->
+    <div class="pdp-rv-list">
+      <!-- Start of Judge.me code -->
+      {%- assign has_legacy = false -%}
+      {%- if product.metafields.judgeme.widget.size > 20 -%}{%- assign has_legacy = true -%}{%- endif -%}
+      <div style='clear:both'></div>
+      <div id='judgeme_product_reviews'
+           class='jdgm-widget jdgm-review-widget'
+           data-product-title='{{ product.title | escape }}'
+           data-id='{{ product.id }}'
+           data-product-id='{{ product.id }}'
+           data-widget='review'
+           data-auto-install='false'
+           data-shop-reviews-count='{{ shop.metafields.judgeme.shop_reviews_count | default: 0 | escape }}'
+           data-entry-point='review_widget.js'
+           data-entry-key='review-widget/main.js'>
+        {%- if has_legacy -%}
+          <div class='jdgm-legacy-widget-content' style='display: none;'>{{ product.metafields.judgeme.widget }}</div>
+        {%- endif -%}
+      </div>
+      {%- if product.metafields.judgeme.review_widget_data -%}
+        <script>jdgm.data ||= {}; jdgm.data.reviewWidget ||= {}; jdgm.data.reviewWidget[{{ product.id }}] = {{ product.metafields.judgeme.review_widget_data }}</script>
+      {%- endif -%}
+      <!-- End of Judge.me code -->
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function(){
+  var toggle   = document.getElementById('pdp-review-toggle');
+  var formWrap = document.getElementById('pdp-review-form-wrap');
+  if (!toggle || !formWrap) return;
+
+  toggle.addEventListener('click', function(){
+    var open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    formWrap.setAttribute('aria-hidden', String(open));
+    formWrap.classList.toggle('pdp-review-form-wrap--open', !open);
+    toggle.textContent = open ? 'Write a review' : 'Close';
+    if (!open) setTimeout(function(){ formWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 60);
+  });
+
+  /* Star picker */
+  var stars = document.querySelectorAll('.pdp-star-pick');
+  var ratingInput = document.getElementById('pdp-rating-val');
+  if (!stars.length || !ratingInput) return;
+  function highlightStars(n){ stars.forEach(function(b,i){ b.classList.toggle('active', i < n); }); }
+  stars.forEach(function(btn, idx){
+    btn.addEventListener('mouseenter', function(){ highlightStars(idx+1); });
+    btn.addEventListener('mouseleave', function(){ highlightStars(parseInt(ratingInput.value,10)||0); });
+    btn.addEventListener('click', function(){
+      ratingInput.value = idx+1;
+      highlightStars(idx+1);
+      stars.forEach(function(b,i){ b.setAttribute('aria-pressed', String(i<=idx)); });
+    });
+  });
+})();
+</script>
+
+<script>
+/* ── Review form toggle ── */
+(function(){
+  var toggle  = document.getElementById('pdp-review-toggle');
+  var formWrap = document.getElementById('pdp-review-form-wrap');
+  if (!toggle || !formWrap) return;
+
+  toggle.addEventListener('click', function(){
+    var open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    formWrap.setAttribute('aria-hidden', String(open));
+    formWrap.classList.toggle('pdp-review-form-wrap--open', !open);
+    if (!open) {
+      setTimeout(function(){ formWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 80);
+    }
+  });
+
+  /* ── Star picker ── */
+  var stars   = document.querySelectorAll('.pdp-star-pick');
+  var ratingInput = document.getElementById('pdp-rating-val');
+  if (!stars.length || !ratingInput) return;
+
+  stars.forEach(function(btn, idx) {
+    btn.addEventListener('mouseenter', function() { highlightStars(idx + 1); });
+    btn.addEventListener('mouseleave', function() { highlightStars(parseInt(ratingInput.value, 10) || 0); });
+    btn.addEventListener('click', function() {
+      ratingInput.value = idx + 1;
+      highlightStars(idx + 1);
+      stars.forEach(function(b, i){ b.setAttribute('aria-pressed', String(i <= idx)); });
+    });
+  });
+
+  function highlightStars(n) {
+    stars.forEach(function(btn, i){ btn.classList.toggle('active', i < n); });
+  }
+})();
+</script>
+
+<script>
+(function(){
+  var heroImg = document.getElementById('pdp-hero-img');
+  var thumbs  = document.querySelectorAll('.pdp-thumb');
+  if(!heroImg || !thumbs.length) return;
+  thumbs.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      heroImg.src = btn.dataset.src;
+      heroImg.alt = btn.dataset.alt;
+      thumbs.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+    });
+  });
+
+  /* Qty buttons */
+  var qtyInput = document.getElementById('qty-n');
+  var qtyM = document.getElementById('qty-m');
+  var qtyP = document.getElementById('qty-p');
+  if(qtyInput && qtyM && qtyP){
+    qtyM.addEventListener('click', function(){
+      var v = parseInt(qtyInput.value,10);
+      if(v > 1) qtyInput.value = v - 1;
+    });
+    qtyP.addEventListener('click', function(){
+      qtyInput.value = parseInt(qtyInput.value,10) + 1;
+    });
+  }
+
+  /* Accordion toggle */
+  document.querySelectorAll('.acc-hd').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      var bd = btn.nextElementSibling;
+      var icon = btn.querySelector('.acc-icon');
+      btn.setAttribute('aria-expanded', String(!expanded));
+      bd.style.display = expanded ? 'none' : 'block';
+      if(icon) icon.textContent = expanded ? '+' : '−';
+    });
+  });
+})();
+</script>
+
+{% schema %}{"name":"Product Page","settings":[]}{% endschema %}

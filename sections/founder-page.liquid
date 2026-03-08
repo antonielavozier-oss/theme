@@ -1,0 +1,143 @@
+<div class="founder-pg">
+
+  <!-- ── HERO — name prominent like Maiweskin ── -->
+  <div class="fpg-hero">
+    <div class="fpg-hero-eyebrow-wrap">
+      <p class="eyebrow">{{ section.settings.eyebrow | default: 'founder' }}</p>
+    </div>
+    <div class="fpg-hero-name-wrap">
+      <h1 class="fpg-founder-name-headline">Vanessa<br>Freitas</h1>
+    </div>
+  </div>
+
+  <!-- ── FOUNDER PORTRAIT + INTRO ── -->
+  <div class="fpg-portrait-section">
+
+    <div class="fpg-portrait-wrap">
+      {%- if section.settings.portrait != blank -%}
+        <img src="{{ section.settings.portrait | image_url: width: 900 }}" alt="{{ section.settings.founder_name | default: 'Founder' }}" class="fpg-portrait">
+      {%- else -%}
+        <div class="fpg-portrait fpg-portrait--placeholder"></div>
+      {%- endif -%}
+      <div class="fpg-portrait-caption">
+        <span class="fpg-portrait-name">{{ section.settings.founder_name | default: 'Vanessa Freitas' }}</span>
+        <span class="fpg-portrait-location">{{ section.settings.founder_location | default: 'Brussels, Belgium' }}</span>
+      </div>
+    </div>
+
+    <div class="fpg-intro-text">
+      <div class="fpg-pull-quote">
+        <p>{{ section.settings.pull_quote | default: '"I want to create for me and for those who come after me, a life with better opportunities."' }}</p>
+      </div>
+      <p class="fpg-intro-body">{{ section.settings.intro_body | default: 'ARCHETYPE was not born in a laboratory. It was born in a kitchen in Brussels, from late nights, a crying baby, botanical research, and an unshakeable belief that women deserve more from their haircare.' }}</p>
+    </div>
+
+  </div>
+
+  <!-- ── STORY CHAPTERS ── -->
+  <div class="fpg-story">
+
+    <!-- Chapter 1: Origins -->
+    <div class="fpg-chapter">
+      <div class="fpg-chapter-num">01</div>
+      <div class="fpg-chapter-content">
+        <h2 class="fpg-chapter-title">{{ section.settings.ch1_title | default: 'From the bakery to Brussels.' }}</h2>
+        <p>{{ section.settings.ch1_p1 | default: 'Born and raised with limited opportunities, she learned early the value of resilience. From her first job at a local bakery at 13, to selling Avon cosmetics at 16 door-to-door in her neighbourhood, to earning a 100% scholarship at a private university in São Paulo at 18 — every step was forged through determination.' }}</p>
+        <p>{{ section.settings.ch1_p2 | default: 'The biggest leap came when she left everything behind and moved to Belgium. Without speaking the language, she did it all: cleaning houses, babysitting, raising her daughter Aurora alone. It was Aurora who unknowingly sparked everything.' }}</p>
+      </div>
+    </div>
+
+    <!-- Chapter 2: Discovery -->
+    <div class="fpg-chapter fpg-chapter--alt">
+      <div class="fpg-chapter-num">02</div>
+      <div class="fpg-chapter-content">
+        <h2 class="fpg-chapter-title">{{ section.settings.ch2_title | default: 'A daughter, a question, and essential oils.' }}</h2>
+        <p>{{ section.settings.ch2_p1 | default: 'Aurora was an active baby — never sleeping more than two hours at a stretch. Desperate for answers, she turned to natural remedies. Aromatherapy became her obsession. Essential oils transformed their nights. And as she shared her journey online, something unexpected happened: hundreds of women around the world began asking the same question.' }}</p>
+        <blockquote class="fpg-chapter-quote">
+          <p>"By chance, don't you also have any personalized remedies to recover my hair's health?"</p>
+        </blockquote>
+        <p>{{ section.settings.ch2_p2 | default: 'They all shared similar issues — unhealthy scalp microbiome, hair loss, thin hair in need of moisture — caused by different factors: stress, hormones, nutrition. The same problems. The same gap in the market.' }}</p>
+      </div>
+    </div>
+
+    <!-- Chapter 3: The Kitchen Lab -->
+    <div class="fpg-chapter">
+      <div class="fpg-chapter-num">03</div>
+      <div class="fpg-chapter-content">
+        <h2 class="fpg-chapter-title">{{ section.settings.ch3_title | default: 'A kitchen becomes a cosmetics lab.' }}</h2>
+        <p>{{ section.settings.ch3_p1 | default: 'She began creating a cream base and shampoo base that any woman could use — then customize with targeted boosters for their specific needs. A fortifying booster. A deep moisture one. A protein-rich formula. The concept was simple and radical: one base, infinite formulas.' }}</p>
+        <p>{{ section.settings.ch3_p2 | default: 'Between 2022 and 2023 she hosted four cosmetics workshops. In January 2024, she launched an online platform with cosmetics courses. Her client base grew so fast her kitchen transformed into a full-fledged cosmetics lab. She took botanical formulation courses. She certified her formulations to meet every safety standard.' }}</p>
+        <p>{{ section.settings.ch3_p3 | default: 'After three years of validating the idea, it was time to share it with the world.' }}</p>
+      </div>
+    </div>
+
+    <!-- Chapter 4: ARCHETYPE -->
+    <div class="fpg-chapter fpg-chapter--alt fpg-chapter--last">
+      <div class="fpg-chapter-num">04</div>
+      <div class="fpg-chapter-content">
+        <h2 class="fpg-chapter-title">{{ section.settings.ch4_title | default: 'ARCHETYPE is born.' }}</h2>
+        <p>{{ section.settings.ch4_p1 | default: 'ARCHETYPE is the sum of every experience — every resilient act, every late night, every woman who asked for something better. It is a brand built on the belief that personalized, natural haircare should be accessible to every woman, regardless of hair type, background, or budget.' }}</p>
+        <p>{{ section.settings.ch4_p2 | default: 'All of her life experiences are part of her professional journey, because they have built who she is today: a fierce woman who wants to conquer the life she deserves — and help other women do the same.' }}</p>
+        <div class="fpg-chapter-cta">
+          <a href="{{ section.settings.cta1_url | default: '/pages/our-story' }}" class="btn-dark">{{ section.settings.cta1_label | default: 'Read our story' }}</a>
+          <a href="{{ section.settings.cta2_url | default: '/collections/all' }}" class="fpg-link-cta">{{ section.settings.cta2_label | default: 'Explore the collection →' }}</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── CLOSING QUOTE ── -->
+  <div class="fpg-closing">
+    <div class="fpg-closing-inner">
+      <p class="fpg-closing-quote">{{ section.settings.closing_quote | default: '"All of my life experiences are part of my professional journey, because they have built who I am today."' }}</p>
+      {%- if section.settings.founder_name != blank -%}
+        <p class="fpg-closing-name">— {{ section.settings.founder_name }}</p>
+      {%- endif -%}
+      <p class="fpg-closing-brand">Founder, ARCHETYPE</p>
+    </div>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "Founder Page",
+  "settings": [
+    { "type": "header",   "content": "Hero" },
+    { "type": "text",     "id": "eyebrow",           "label": "Eyebrow",           "default": "The Founder" },
+    { "type": "text",     "id": "title",             "label": "Title",             "default": "A fierce woman" },
+    { "type": "text",     "id": "title_em",          "label": "Title italic",      "default": "who creates her own opportunities." },
+    { "type": "header",   "content": "Portrait" },
+    { "type": "image_picker", "id": "portrait",      "label": "Founder photo" },
+    { "type": "text",     "id": "founder_name",      "label": "Founder name",      "default": "Vanessa Freitas" },
+    { "type": "text",     "id": "founder_location",  "label": "Location",          "default": "Brussels, Belgium" },
+    { "type": "textarea", "id": "pull_quote",        "label": "Pull quote",        "default": "I want to create for me and for those who come after me, a life with better opportunities." },
+    { "type": "textarea", "id": "intro_body",        "label": "Intro body",        "default": "ARCHETYPE was not born in a laboratory. It was born in a kitchen in Brussels, from late nights, a crying baby, botanical research, and an unshakeable belief that women deserve more from their haircare." },
+    { "type": "header",   "content": "Chapter 1" },
+    { "type": "text",     "id": "ch1_title",         "label": "Title",             "default": "From the bakery to Brussels." },
+    { "type": "textarea", "id": "ch1_p1",            "label": "Paragraph 1",       "default": "Born and raised with limited opportunities, she learned early the value of resilience. From her first job at a local bakery at 13, to selling Avon cosmetics at 16, to earning a full scholarship at a private university in Sao Paulo at 18." },
+    { "type": "textarea", "id": "ch1_p2",            "label": "Paragraph 2",       "default": "The biggest leap came when she left everything behind and moved to Belgium. Without speaking the language, she did it all. It was her daughter Aurora who unknowingly sparked everything." },
+    { "type": "header",   "content": "Chapter 2" },
+    { "type": "text",     "id": "ch2_title",         "label": "Title",             "default": "A daughter, a question, and essential oils." },
+    { "type": "textarea", "id": "ch2_p1",            "label": "Paragraph 1",       "default": "Aurora was an active baby. Desperate for answers, she turned to natural remedies. Aromatherapy became her obsession. And as she shared her journey online, hundreds of women began asking the same question." },
+    { "type": "textarea", "id": "ch2_p2",            "label": "Paragraph 2",       "default": "They all shared similar issues caused by different factors: stress, hormones, nutrition. The same problems. The same gap in the market." },
+    { "type": "header",   "content": "Chapter 3" },
+    { "type": "text",     "id": "ch3_title",         "label": "Title",             "default": "A kitchen becomes a cosmetics lab." },
+    { "type": "textarea", "id": "ch3_p1",            "label": "Paragraph 1",       "default": "She began creating a base that any woman could use then customize with targeted boosters. One base, infinite formulas." },
+    { "type": "textarea", "id": "ch3_p2",            "label": "Paragraph 2",       "default": "Between 2022 and 2023 she hosted four cosmetics workshops. Her client base grew so fast her kitchen transformed into a full cosmetics lab." },
+    { "type": "textarea", "id": "ch3_p3",            "label": "Paragraph 3",       "default": "After three years of validating the idea, it was time to share it with the world." },
+    { "type": "header",   "content": "Chapter 4" },
+    { "type": "text",     "id": "ch4_title",         "label": "Title",             "default": "ARCHETYPE is born." },
+    { "type": "textarea", "id": "ch4_p1",            "label": "Paragraph 1",       "default": "ARCHETYPE is the sum of every experience. A brand built on the belief that personalized, natural haircare should be accessible to every woman." },
+    { "type": "textarea", "id": "ch4_p2",            "label": "Paragraph 2",       "default": "All of her life experiences have built who she is today: a fierce woman who wants to conquer the life she deserves and help other women do the same." },
+    { "type": "url",      "id": "cta1_url",          "label": "CTA 1 URL" },
+    { "type": "text",     "id": "cta1_label",        "label": "CTA 1 label",       "default": "Read our story" },
+    { "type": "url",      "id": "cta2_url",          "label": "CTA 2 URL" },
+    { "type": "text",     "id": "cta2_label",        "label": "CTA 2 label",       "default": "Explore the collection" },
+    { "type": "header",   "content": "Closing quote" },
+    { "type": "textarea", "id": "closing_quote",     "label": "Quote",             "default": "All of my life experiences are part of my professional journey, because they have built who I am today." },
+    { "type": "text",     "id": "closing_name",      "label": "Attribution name" }
+  ]
+}
+{% endschema %}

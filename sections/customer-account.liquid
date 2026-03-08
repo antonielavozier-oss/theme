@@ -1,0 +1,177 @@
+<section class="account-section">
+
+  <!-- Page header -->
+  <div class="account-hero">
+    <div class="account-hero-inner">
+      <p class="eyebrow">My Account</p>
+      <h1 class="account-title">
+        Welcome back,<br>
+        <em>{{ customer.first_name }}.</em>
+      </h1>
+    </div>
+    <a href="{{ routes.account_logout_url }}" class="account-logout">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Sign out
+    </a>
+  </div>
+
+  <div class="account-layout">
+
+    <!-- LEFT: Orders -->
+    <div class="account-main">
+
+      <div class="account-card">
+        <div class="account-card-header">
+          <h2 class="account-card-title">Order history</h2>
+          <span class="account-card-meta">{{ customer.orders_count }} order{% if customer.orders_count != 1 %}s{% endif %}</span>
+        </div>
+
+        {%- if customer.orders_count > 0 -%}
+          <div class="account-orders">
+            {%- for order in customer.orders limit: 10 -%}
+              <a href="{{ order.customer_url }}" class="account-order-row">
+                <div class="account-order-info">
+                  <p class="account-order-num">{{ order.name }}</p>
+                  <p class="account-order-date">{{ order.created_at | date: '%B %d, %Y' }}</p>
+                </div>
+                <div class="account-order-items-preview">
+                  {%- for line in order.line_items limit: 3 -%}
+                    {%- if line.image -%}
+                      <img src="{{ line.image | image_url: width: 60 }}" alt="{{ line.title | escape }}" class="account-order-thumb">
+                    {%- endif -%}
+                  {%- endfor -%}
+                  {%- if order.line_items.size > 3 -%}
+                    <span class="account-order-more">+{{ order.line_items.size | minus: 3 }}</span>
+                  {%- endif -%}
+                </div>
+                <div class="account-order-right">
+                  <span class="account-order-total">{{ order.total_price | money }}</span>
+                  <span class="account-order-status account-order-status--{{ order.financial_status }}">{{ order.financial_status | capitalize }}</span>
+                </div>
+                <svg class="account-order-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            {%- endfor -%}
+          </div>
+        {%- else -%}
+          <div class="account-empty-orders">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            <p>No orders yet.</p>
+            <a href="/collections/all" class="btn-dark">Start your ritual</a>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- ── UPSELL BLOCK ── -->
+      <div class="account-upsell">
+        <div class="account-upsell-header">
+          <p class="eyebrow">{{ section.settings.upsell_eyebrow | default: 'Complete your ritual' }}</p>
+          <h2 class="account-upsell-title">{{ section.settings.upsell_title | default: 'You might also need' }}</h2>
+          <p class="account-upsell-subtitle">{{ section.settings.upsell_subtitle | default: 'Targeted boosters that adapt to your hair as it evolves.' }}</p>
+        </div>
+
+        <div class="account-upsell-grid">
+          {%- assign upsell_collection = collections[section.settings.upsell_collection] -%}
+          {%- if upsell_collection != blank and upsell_collection.products_count > 0 -%}
+            {%- for product in upsell_collection.products limit: section.settings.upsell_count -%}
+              <a href="{{ product.url }}" class="account-upsell-card">
+                <div class="account-upsell-img">
+                  {%- if product.featured_image -%}
+                    <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.featured_image.alt | escape | default: product.title }}" loading="lazy">
+                  {%- endif -%}
+                  {%- if product.compare_at_price > product.price -%}
+                    <span class="upsell-badge">Sale</span>
+                  {%- endif -%}
+                </div>
+                <div class="account-upsell-info">
+                  {%- if product.product_type != blank -%}
+                    <p class="product-type">{{ product.product_type }}</p>
+                  {%- endif -%}
+                  <h3 class="account-upsell-name">{{ product.title }}</h3>
+                  <div class="account-upsell-footer">
+                    <span class="account-upsell-price">{{ product.price | money }}</span>
+                    <span class="account-upsell-cta">Add to ritual &rarr;</span>
+                  </div>
+                </div>
+              </a>
+            {%- endfor -%}
+          {%- else -%}
+            <!-- Fallback: show all products if no collection selected -->
+            {%- for product in collections.all.products limit: section.settings.upsell_count -%}
+              <a href="{{ product.url }}" class="account-upsell-card">
+                <div class="account-upsell-img">
+                  {%- if product.featured_image -%}
+                    <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.featured_image.alt | escape | default: product.title }}" loading="lazy">
+                  {%- endif -%}
+                </div>
+                <div class="account-upsell-info">
+                  {%- if product.product_type != blank -%}
+                    <p class="product-type">{{ product.product_type }}</p>
+                  {%- endif -%}
+                  <h3 class="account-upsell-name">{{ product.title }}</h3>
+                  <div class="account-upsell-footer">
+                    <span class="account-upsell-price">{{ product.price | money }}</span>
+                    <span class="account-upsell-cta">Add to ritual &rarr;</span>
+                  </div>
+                </div>
+              </a>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: Details -->
+    <aside class="account-sidebar">
+
+      <!-- Address -->
+      <div class="account-card account-card--sm">
+        <div class="account-card-header">
+          <h2 class="account-card-title">Default address</h2>
+          <a href="{{ routes.account_addresses_url }}" class="account-card-link">Manage</a>
+        </div>
+        {%- if customer.default_address -%}
+          <address class="account-address">
+            {{ customer.default_address.name }}<br>
+            {{ customer.default_address.street }}<br>
+            {{ customer.default_address.city }}, {{ customer.default_address.zip }}<br>
+            {{ customer.default_address.country }}
+          </address>
+        {%- else -%}
+          <p class="account-no-address">No address saved yet.</p>
+          <a href="{{ routes.account_addresses_url }}" class="account-add-address">+ Add address</a>
+        {%- endif -%}
+      </div>
+
+      <!-- Account info -->
+      <div class="account-card account-card--sm">
+        <div class="account-card-header">
+          <h2 class="account-card-title">Account details</h2>
+        </div>
+        <div class="account-details">
+          <p class="account-detail-label">Name</p>
+          <p class="account-detail-value">{{ customer.name }}</p>
+          <p class="account-detail-label">Email</p>
+          <p class="account-detail-value">{{ customer.email }}</p>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Customer Account",
+  "settings": [
+    { "type": "header",     "content": "Upsell Block" },
+    { "type": "text",       "id": "upsell_eyebrow",    "label": "Eyebrow",     "default": "Complete your ritual" },
+    { "type": "text",       "id": "upsell_title",      "label": "Title",       "default": "You might also need" },
+    { "type": "textarea",   "id": "upsell_subtitle",   "label": "Subtitle",    "default": "Targeted boosters that adapt to your hair as it evolves." },
+    { "type": "collection", "id": "upsell_collection", "label": "Product collection to feature" },
+    { "type": "range",      "id": "upsell_count",      "label": "Number of products", "min": 2, "max": 4, "step": 1, "default": 3 }
+  ]
+}
+{% endschema %}
