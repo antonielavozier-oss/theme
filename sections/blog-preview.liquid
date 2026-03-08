@@ -1,5 +1,5 @@
 {%- liquid
-  assign blog_handle = section.settings.blog | default: 'news'
+  assign blog_handle = section.settings.blog | default: 'journal'
   assign blog_obj    = blogs[blog_handle]
   assign post_limit  = section.settings.post_limit | default: 4
 -%}
@@ -11,7 +11,7 @@
       <p class="eyebrow">{{ section.settings.eyebrow | default: 'Read and Learn' }}</p>
       <h2 class="blog-preview-title">{{ section.settings.title | default: 'The Hair' }} <em>{{ section.settings.title_em | default: 'Blog' }}</em></h2>
     </div>
-    <a href="{{ blog_obj.url | default: '/blogs/news' }}" class="blog-view-all">
+    <a href="{{ blog_obj.url | default: '/blogs/journal' }}" class="blog-view-all">
       {{ section.settings.cta | default: 'View all' }} &rarr;
     </a>
   </div>
@@ -78,7 +78,8 @@
     {
       "type": "blog",
       "id": "blog",
-      "label": "Blog"
+      "label": "Blog",
+      "info": "Select 'Journal' blog"
     },
     {
       "type": "range",

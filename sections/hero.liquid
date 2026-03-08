@@ -16,9 +16,9 @@
         <h1 class="hero-title">{{ section.settings.slide1_title }}<br>{{ section.settings.slide1_title_and }} <em>{{ section.settings.slide1_title_em }}</em></h1>
         <p class="hero-body">{{ section.settings.slide1_body }}</p>
         <div class="hero-btns">
-          <a href="{{ section.settings.slide1_btn1_url }}" class="btn-primary">{{ section.settings.slide1_btn1 }}</a>
+          <a href="{{ section.settings.slide1_btn1_url | default: '/collections/all' }}" class="btn-primary">{{ section.settings.slide1_btn1 }}</a>
           {%- if section.settings.slide1_btn2 != blank -%}
-            <a href="{{ section.settings.slide1_btn2_url }}" class="btn-outline">{{ section.settings.slide1_btn2 }}</a>
+            <a href="{{ section.settings.slide1_btn2_url | default: '/pages/our-story' }}" class="btn-outline">{{ section.settings.slide1_btn2 }}</a>
           {%- endif -%}
         </div>
       </div>
@@ -41,9 +41,9 @@
         <h1 class="hero-title">{{ section.settings.slide2_title }}<br><em>{{ section.settings.slide2_title_em }}</em></h1>
         <p class="hero-body">{{ section.settings.slide2_body }}</p>
         <div class="hero-btns">
-          <a href="{{ section.settings.slide2_btn1_url }}" class="btn-primary">{{ section.settings.slide2_btn1 }}</a>
+          <a href="{{ section.settings.slide2_btn1_url | default: '/collections/all' }}" class="btn-primary">{{ section.settings.slide2_btn1 }}</a>
           {%- if section.settings.slide2_btn2 != blank -%}
-            <a href="{{ section.settings.slide2_btn2_url }}" class="btn-outline">{{ section.settings.slide2_btn2 }}</a>
+            <a href="{{ section.settings.slide2_btn2_url | default: '/pages/ritual' }}" class="btn-outline">{{ section.settings.slide2_btn2 }}</a>
           {%- endif -%}
         </div>
       </div>
@@ -66,9 +66,9 @@
         <h1 class="hero-title">{{ section.settings.slide3_title }}<br><em>{{ section.settings.slide3_title_em }}</em></h1>
         <p class="hero-body">{{ section.settings.slide3_body }}</p>
         <div class="hero-btns">
-          <a href="{{ section.settings.slide3_btn1_url }}" class="btn-primary">{{ section.settings.slide3_btn1 }}</a>
+          <a href="{{ section.settings.slide3_btn1_url | default: '/pages/ritual' }}" class="btn-primary">{{ section.settings.slide3_btn1 }}</a>
           {%- if section.settings.slide3_btn2 != blank -%}
-            <a href="{{ section.settings.slide3_btn2_url }}" class="btn-outline">{{ section.settings.slide3_btn2 }}</a>
+            <a href="{{ section.settings.slide3_btn2_url | default: '/pages/our-story' }}" class="btn-outline">{{ section.settings.slide3_btn2 }}</a>
           {%- endif -%}
         </div>
       </div>

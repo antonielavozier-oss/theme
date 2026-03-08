@@ -322,50 +322,43 @@
 {%- endif -%}
 
 <!-- ══════════════════════════════════════════════
-     JUDGE.ME CORE — Branded Preview Product Reviews
+     REVIEWS SECTION — Judge.me
 ══════════════════════════════════════════════ -->
-<section class="jdgm-preview-section">
-  <div class="jdgm-preview-inner">
-    <div class='jdgm-widget jdgm-preview-badge'
-      data-id='{{ product.id }}'
-      data-product-title='{{ product.title | escape }}'
-      data-product-handle='{{ product.handle }}'>
-    </div>
+<section class="pdp-reviews" id="pdp-reviews">
+  <div class="pdp-reviews-inner">
+<!-- Start of Judge.me code -->{% assign has_legacy = false %}{% if product.metafields.judgeme.widget.size > 20 %}{% assign has_legacy = true %}{% endif %}<div style='clear:both'></div><div id='judgeme_product_reviews' class='jdgm-widget jdgm-review-widget' data-product-title='{{ product.title | escape }}' data-id='{{ product.id }}' data-product-id='{{ product.id }}' data-widget='review' data-auto-install='false' data-shop-reviews-count='{{ shop.metafields.judgeme.shop_reviews_count | default: 0 | escape }}' data-entry-point='review_widget.js' data-entry-key='review-widget/main.js'>{% if has_legacy %}<div class='jdgm-legacy-widget-content' style='display: none;'>{{ product.metafields.judgeme.widget }}</div>{% endif %}</div>{% if product.metafields.judgeme.review_widget_data %}<script>jdgm.data ||= {}; jdgm.data.reviewWidget ||= {}; jdgm.data.reviewWidget[{{ product.id }}] = {{ product.metafields.judgeme.review_widget_data }}</script>{% endif %}<!-- End of Judge.me code -->
   </div>
 </section>
 
 <script>
+/* Gallery */
 (function(){
   var heroImg = document.getElementById('pdp-hero-img');
   var thumbs  = document.querySelectorAll('.pdp-thumb');
-  if(!heroImg || !thumbs.length) return;
-  thumbs.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      heroImg.src = btn.dataset.src;
-      heroImg.alt = btn.dataset.alt;
-      thumbs.forEach(function(b){ b.classList.remove('active'); });
-      btn.classList.add('active');
+  if(heroImg && thumbs.length){
+    thumbs.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        heroImg.src = btn.dataset.src;
+        heroImg.alt = btn.dataset.alt;
+        thumbs.forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+      });
     });
-  });
+  }
 
-  /* Qty buttons */
+  /* Qty */
   var qtyInput = document.getElementById('qty-n');
   var qtyM = document.getElementById('qty-m');
   var qtyP = document.getElementById('qty-p');
   if(qtyInput && qtyM && qtyP){
-    qtyM.addEventListener('click', function(){
-      var v = parseInt(qtyInput.value,10);
-      if(v > 1) qtyInput.value = v - 1;
-    });
-    qtyP.addEventListener('click', function(){
-      qtyInput.value = parseInt(qtyInput.value,10) + 1;
-    });
+    qtyM.addEventListener('click', function(){ var v=parseInt(qtyInput.value,10); if(v>1) qtyInput.value=v-1; });
+    qtyP.addEventListener('click', function(){ qtyInput.value=parseInt(qtyInput.value,10)+1; });
   }
 
-  /* Accordion toggle */
+  /* Accordions */
   document.querySelectorAll('.acc-hd').forEach(function(btn){
     btn.addEventListener('click', function(){
-      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      var expanded = btn.getAttribute('aria-expanded')==='true';
       var bd = btn.nextElementSibling;
       var icon = btn.querySelector('.acc-icon');
       btn.setAttribute('aria-expanded', String(!expanded));
@@ -373,6 +366,7 @@
       if(icon) icon.textContent = expanded ? '+' : '−';
     });
   });
+
 })();
 </script>
 
