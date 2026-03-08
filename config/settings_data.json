@@ -1,1 +1,114 @@
-{"current":{}}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "message_1": "Free shipping in Belgium on all orders",
+          "message_2": "Free European shipping on orders above 75 EUR",
+          "message_3": "Delivered within 1-3 working days",
+          "message_4": "Natural. Sustainable. Made for every hair type.",
+          "bg_color": "#2b2218"
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {}
+      },
+      "product-page": {
+        "type": "product-page",
+        "settings": {}
+      },
+      "product-more": {
+        "type": "product-more",
+        "settings": {
+          "eyebrow": "The full collection"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "about": "",
+          "instagram": "",
+          "tiktok": "",
+          "pinterest": "",
+          "youtube": "",
+          "col2_title": "Shop",
+          "col3_title": "Archetype",
+          "col3_link1_label": "Our Story",
+          "col3_link1_url": "",
+          "col3_link2_label": "Ingredients",
+          "col3_link2_url": "",
+          "col3_link3_label": "The Ritual",
+          "col3_link3_url": "",
+          "col3_link4_label": "Journal",
+          "col3_link4_url": "",
+          "col3_link5_label": "Contact",
+          "col3_link5_url": "",
+          "col4_title": "Support",
+          "col4_link1_label": "FAQ",
+          "col4_link1_url": "",
+          "col4_link2_label": "Shipping and Returns",
+          "col4_link2_url": "",
+          "col4_link3_label": "Privacy Policy",
+          "col4_link3_url": "",
+          "col4_link4_label": "Terms and Conditions",
+          "col4_link4_url": "",
+          "col4_link5_label": "",
+          "col4_link5_url": "",
+          "copyright": "Archetype® Hair",
+          "rights": "All rights reserved",
+          "lang1": "EN",
+          "lang1_url": "",
+          "lang2": "FR",
+          "lang2_url": "",
+          "lang3": "NL",
+          "lang3_url": "",
+          "lang4": "DE",
+          "lang4_url": "",
+          "lang5": "PT",
+          "lang5_url": "",
+          "show_visa": true,
+          "show_mc": true,
+          "show_amex": true,
+          "show_paypal": true,
+          "show_applepay": true,
+          "show_googlepay": true,
+          "show_ideal": true,
+          "show_bancontact": true,
+          "show_klarna": true,
+          "show_sepa": true,
+          "bg_color": ""
+        }
+      },
+      "cookie-consent": {
+        "type": "cookie-consent",
+        "settings": {
+          "title": "We use cookies",
+          "body": "We use essential cookies to make our site work, and optional analytics cookies to understand how you use it.",
+          "btn_accept": "Accept all",
+          "btn_essential": "Essential only",
+          "policy_label": "Privacy Policy",
+          "policy_url": ""
+        }
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "14060646107696862457": {
+        "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": false,
+        "settings": {}
+      }
+    }
+  }
+}
