@@ -1364,13 +1364,13 @@ body.template-index .site-header:not(.scrolled) .logo-light { display: block; }
   border-bottom: 1px solid rgba(255,255,255,.07);
   transition: background .3s;
 }
-.testimonial:hover { background: rgba(255,255,255,.03); }
+.testimonial:hover { background: rgba(255,255,255,.08); }
 .stars {
   color: var(--orange);
   font-size: .7rem;
   letter-spacing: .12em;
   margin-bottom: 20px;
-  opacity: .9;
+  opacity: 1;
 }
 .testimonial-text {
   font-family: 'Cormorant', serif;
@@ -1378,14 +1378,14 @@ body.template-index .site-header:not(.scrolled) .logo-light { display: block; }
   font-weight: 300;
   font-style: italic;
   line-height: 1.6;
-  color: rgba(239,237,230,.75);
+  color: rgba(239,237,230,.95);
   margin-bottom: 20px;
 }
 .testimonial-author {
   font-size: .52rem;
   letter-spacing: .26em;
   text-transform: uppercase;
-  color: rgba(239,237,230,.3);
+  color: rgba(239,237,230,.6);
   font-weight: 300;
 }
 
